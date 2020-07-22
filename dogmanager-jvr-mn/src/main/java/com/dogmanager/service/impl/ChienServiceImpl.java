@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +22,7 @@ public class ChienServiceImpl implements IChienService {
 
 	@Autowired
 	IChienDao chienDao;
-	
+
 	@Override
 	public List<Chien> getChiens() {
 		return chienDao.getChiens();

@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dogmanager.bean.Utilisateur;
-import com.dogmanager.service.impl.UtilisateurServiceImpl;
-
 @WebServlet("/inscription")
 public class InscriptionUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,13 +19,13 @@ public class InscriptionUtilisateur extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Utilisateur utilisateur = UtilisateurServiceImpl.inscription(request);
-		if (utilisateur != null) {
-			response.sendRedirect("");
-		} else {
-			request.setAttribute("error", "Unknown user, please try again");
-			request.getRequestDispatcher("/html/login.html").forward(request, response);
-		}
+//
+//		Utilisateur utilisateur = UtilisateurServiceImpl.inscription(request);
+//		if (utilisateur != null) {
+//			response.sendRedirect("");
+//		} else {
+//			request.setAttribute("error", "Unknown user, please try again");
+//			request.getRequestDispatcher("/html/login.html").forward(request, response);
+//		}
 	}
 }
