@@ -1,5 +1,5 @@
 package com.dogmanager.service;
 
-public interface IDogService {
+public interface IChienService {
 
 }

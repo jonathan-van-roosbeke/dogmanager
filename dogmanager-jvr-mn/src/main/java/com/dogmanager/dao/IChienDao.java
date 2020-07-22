@@ -1,5 +1,5 @@
 package com.dogmanager.dao;
 
-public interface IDogDao {
+public interface IChienDao {
 
 }
