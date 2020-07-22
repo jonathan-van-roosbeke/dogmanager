@@ -1,5 +1,5 @@
 package com.dogmanager.bean;
 
-public class Dog {
+public class Chien {
 
 }
