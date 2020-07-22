@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DataSourceMysql{
+public class DataSourceMariadb {
 
-	@Value("${database.mysql.url}")
+	@Value("${database.mariadb.url}")
 	private String url;
-	@Value("${database.mysql.driver}")
+	@Value("${database.mariadb.driver}")
 	private String driver;
-	@Value("${database.mysql.user}")
+	@Value("${database.mariadb.user}")
 	private String utilisateur;
-	@Value("${database.mysql.password}")
+	@Value("${database.mariadb.password}")
 	private String motDePasse;
 
 }
