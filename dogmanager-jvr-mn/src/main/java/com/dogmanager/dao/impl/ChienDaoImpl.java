@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.dogmanager.bean.Chien;
+import com.dogmanager.bean.Couleur;
+import com.dogmanager.bean.Race;
 import com.dogmanager.dao.IChienDao;
 import com.dogmanager.dao.conf.IDatabaseConnection;
 
@@ -40,14 +42,16 @@ public class ChienDaoImpl implements IChienDao {
 					"select * from chien");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Chien c = new Chien();
-				c.setIdPuceChien(rs.getInt("id_puce_chien"));
-				c.setNomChien(rs.getString("nom_chien"));
-				c.setAgeChien(rs.getInt("age_chien"));
-				c.setIdCouleur(rs.getInt("id_couleur"));
-				c.setIdRace(rs.getInt("id_race"));
-				c.setIdUtilisateur(rs.getInt("id_utilisateur"));
-				chiens.add(c);
+				Chien chien = new Chien();
+				Couleur couleur = new Couleur();
+				Race race = new Race();
+				chien.setIdPuceChien(rs.getInt("id_puce_chien"));
+				chien.setNomChien(rs.getString("nom_chien"));
+				chien.setAgeChien(rs.getInt("age_chien"));
+				chien.setIdCouleur(rs.getInt("id_couleur"));
+				chien.setIdRace(rs.getInt("id_race"));
+				chien.setIdUtilisateur(rs.getInt("id_utilisateur"));
+				chiens.add(chien);
 			}
 
 		} catch (SQLException e) {
