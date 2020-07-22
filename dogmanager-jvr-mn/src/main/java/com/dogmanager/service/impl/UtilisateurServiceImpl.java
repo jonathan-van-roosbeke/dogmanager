@@ -32,7 +32,14 @@ public class UtilisateurServiceImpl implements IUtilisateurService {
 	}
 
 	@Override
-	public Utilisateur inscription(HttpServletRequest request) {
-		return null;
+	public boolean inscription(HttpServletRequest request) {
+		String nom = request.getParameter("nom");
+		String prenom = request.getParameter("prenom");
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+		if (nom != null && prenom != null && login != null && password != null) {
+			return utilisateurDao.inscription(new Utilisateur(nom, prenom, login, password)) != 0;
+		}
+		return false;
 	}
 }

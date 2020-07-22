@@ -8,6 +8,6 @@ public interface IUtilisateurService {
 
 	Utilisateur connexion(HttpServletRequest request);
 
-	public Utilisateur inscription(HttpServletRequest request);
+	public boolean inscription(HttpServletRequest request);
 
 }

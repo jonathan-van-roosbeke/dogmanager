@@ -31,12 +31,10 @@ public class ConnexionUtilisateur extends AbstractServletController {
 			throws ServletException, IOException {
 		Utilisateur utilisateur = userServiceImp.connexion(request);
 		if (utilisateur != null) {
-			System.out.println("connected");
 			request.getSession().setAttribute("utilisateur", utilisateur);
 			response.sendRedirect("liste-utilisateur");
 		} else {
-			System.out.println("not connected");
-			request.setAttribute("error", "Unknown user, please try again");
+			request.setAttribute("erreur", "Utilisateur / mot de  passe incorrect");
 			request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
 		}
 	}
