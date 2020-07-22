@@ -6,9 +6,11 @@ public interface IUtilisateurDao {
 
 	public Utilisateur connexion(String login, String password);
 
-	public Utilisateur selecUsertById(int id);
+	public int inscription(Utilisateur utilisateur);
 
-	public int addUtilisateur(Utilisateur utilisateur);
+	public Utilisateur selectUtilisateurtById(int id);
+
+	public int deleteByLogin(String login);
 
 //	public int updateUtilisateur(Utilisateur utilisateur);
 

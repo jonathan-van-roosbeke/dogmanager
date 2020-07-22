@@ -8,15 +8,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+import com.dogmanager.bean.Utilisateur;
+import com.dogmanager.service.impl.UtilisateurServiceImpl;
+
+@WebServlet("/inscription")
+public class InscriptionUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getRequestDispatcher("/jsp/creer-utilisateur.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		Utilisateur utilisateur = UtilisateurServiceImpl.inscription(request);
+		if (utilisateur != null) {
+			response.sendRedirect("");
+		} else {
+			request.setAttribute("error", "Unknown user, please try again");
+			request.getRequestDispatcher("/html/login.html").forward(request, response);
+		}
 	}
 }
