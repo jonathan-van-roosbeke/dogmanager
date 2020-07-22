@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component("connexionMysql")
-public class DatabaseConnectionMysql implements IDatabaseConnection {
+@Component("connexionMariadb")
+public class DatabaseConnectionMariadb implements IDatabaseConnection {
 
 	@Autowired
-	private DataSourceMysql dataSourceMysql;
+	private DataSourceMariadb dataSourceMariadb;
 
 	private Connection connexion = null;
 
@@ -19,9 +19,9 @@ public class DatabaseConnectionMysql implements IDatabaseConnection {
 	public Connection getConnection() {
 		if (connexion == null) {
 			try {
-				Class.forName(dataSourceMysql.getDriver());
-				connexion = DriverManager.getConnection(dataSourceMysql.getUrl(),
-						dataSourceMysql.getUtilisateur(), dataSourceMysql.getMotDePasse());
+				Class.forName(dataSourceMariadb.getDriver());
+				connexion = DriverManager.getConnection(dataSourceMariadb.getUrl(), dataSourceMariadb.getUtilisateur(),
+						dataSourceMariadb.getMotDePasse());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

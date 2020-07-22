@@ -1,5 +1,5 @@
 package com.dogmanager.service.impl;
 
-public class DogServiceImpl {
+public class ChienServiceImpl {
 
 }
