@@ -21,5 +21,4 @@ public class DataSourceMariadb {
 	private String utilisateur;
 	@Value("${database.mariadb.password}")
 	private String motDePasse;
-
 }

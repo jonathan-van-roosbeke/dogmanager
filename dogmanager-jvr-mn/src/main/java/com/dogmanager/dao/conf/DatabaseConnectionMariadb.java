@@ -24,6 +24,7 @@ public class DatabaseConnectionMariadb implements IDatabaseConnection {
 						dataSourceMariadb.getMotDePasse());
 			} catch (Exception e) {
 				e.printStackTrace();
+
 			}
 		}
 		return connexion;

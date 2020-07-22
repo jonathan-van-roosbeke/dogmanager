@@ -7,17 +7,26 @@ import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.dao.IUtilisateurDao;
 import com.dogmanager.dao.conf.IDatabaseConnection;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Repository
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class UtilisateurDaoImpl implements IUtilisateurDao {
 
 	private Connection connection;
 
 	@Autowired
-	public UtilisateurDaoImpl(@Qualifier("connexionMysql") IDatabaseConnection databaseConnection) {
+	public UtilisateurDaoImpl(@Qualifier("connexionMariadb") IDatabaseConnection databaseConnection) {
 		this.connection = databaseConnection.getConnection();
 	}
 
@@ -41,23 +50,48 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 	}
 
 	@Override
-	public Utilisateur selecUsertById(int id) {
-		return null;
-	}
-
-	@Override
-	public int addUtilisateur(Utilisateur utilisateur) {
+	public int inscription(Utilisateur utilisateur) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("insert into utilisateur value(?,?,?,?)");
+			PreparedStatement ps = connection.prepareStatement(
+					"insert into utilisateur (nom_utilisateur, prenom_utilisateur, login, password) value(?,?,?,md5(?))");
 			ps.setString(1, utilisateur.getNom());
 			ps.setString(2, utilisateur.getPrenom());
-			ps.setNString(3, utilisateur.getLogin());
-			ps.setNString(4, utilisateur.getPassword());
+			ps.setString(3, utilisateur.getLogin());
+			ps.setString(4, utilisateur.getPassword());
 			return ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public Utilisateur selectUtilisateurtById(int id) {
+		try {
+			PreparedStatement ps = connection.prepareStatement("select * from utilisateur;");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				// TODO remplacer null par la liste des chiens.
+				return new Utilisateur(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int deleteByLogin(String login) {
+		try {
+			PreparedStatement ps = connection.prepareStatement("delete from utilisateur where login=?;");
+			ps.setString(1, login);
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+
 	}
 
 //	@Override
