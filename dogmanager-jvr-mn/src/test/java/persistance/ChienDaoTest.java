@@ -38,7 +38,7 @@ public class ChienDaoTest {
 
 	@Test
 	public void getChienById() {
-		Chien chien = chienDao.getChienById(139);
+		Chien chien = chienDao.getChienById(93);
 		assertNotNull(chien);
 	}
 
@@ -69,8 +69,8 @@ public class ChienDaoTest {
 	@Test
 	public void updateChienTest() {
 		Chien chien = chienDao.getChiensByUtilisateurId(1).get(0);
-		Chien newChien = chienDao.update(chien, new Chien(93, "bbbb", 10, new Couleur(1, ""), new Race(3, ""),
-				utilisateurDao.selectUtilisateurtById(1)));
+		Chien newChien = chienDao.update(chien, new Chien(93, "bbbb", 10, new Couleur(1, ""), new Race(3, "")));// ,
+		// utilisateurDao.selectUtilisateurtById(1)));
 		assertNotNull(newChien);
 		assertEquals(newChien.getIdPuceChien(), 93);
 	}
