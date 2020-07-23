@@ -39,7 +39,7 @@ public class EditionChien extends AbstractServletController {
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
-			idChien = Integer.parseInt("0" + request.getParameter("id_puce_chien").replaceAll("^\\d", ""));
+			idChien = Integer.parseInt(request.getParameter("id_puce_chien"));
 			request.setAttribute("races", raceService.getRaces());
 			request.setAttribute("couleurs", couleurService.getCouleurs());
 			request.getRequestDispatcher("/jsp/editer-chien.jsp").forward(request, response);
@@ -62,8 +62,8 @@ public class EditionChien extends AbstractServletController {
 
 			Chien newChien = new Chien(idPuceChien, nomChien, ageChien, couleurService.getCouleurById(couleur),
 					raceService.getRaceById(race), ((Utilisateur) session.getAttribute("utilisateur")));
-			System.out.println(chienService.getChiensById(idChien).getNomChien());
-			Chien chiens = chienService.update(chienService.getChiensById(idChien), newChien);
+
+			Chien chiens = chienService.update(chienService.getChienById(idChien), newChien);
 			this.getServletContext().getRequestDispatcher("/jsp/liste-utilisateur.jsp").forward(request, response);
 		}
 	}

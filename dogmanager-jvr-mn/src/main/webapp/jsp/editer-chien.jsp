@@ -28,7 +28,7 @@
 			        <option value="${races.idRace}">${races.nomRace}</option>
 			    	</c:forEach>
 			  	</select>
-            <p>nom : <input class="form-control" name="race" value="nom-chien" type="text" placeholder="nom-chien" pattern="[a-zA-Z]+" required></p>
+            <p>nom : <input class="form-control" name="nom-chien" value="nom-chien" type="text" placeholder="nom-chien" pattern="[a-zA-Z]+" required></p>
             
             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">couleur</label>
 			  

@@ -68,7 +68,8 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 	@Override
 	public Utilisateur selectUtilisateurtById(int id) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("select * from utilisateur;");
+			PreparedStatement ps = connection.prepareStatement("select * from utilisateur where id_utilisateur = ?;");
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				// TODO remplacer null par la liste des chiens.

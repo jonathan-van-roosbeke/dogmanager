@@ -37,6 +37,12 @@ public class ChienDaoTest {
 	}
 
 	@Test
+	public void getChienById() {
+		Chien chien = chienDao.getChienById(139);
+		assertNotNull(chien);
+	}
+
+	@Test
 	public void getChiensByUtilisateurIdTest() {
 		List<Chien> chiens = chienDao.getChiensByUtilisateurId(2);
 		assertNotNull(chiens);

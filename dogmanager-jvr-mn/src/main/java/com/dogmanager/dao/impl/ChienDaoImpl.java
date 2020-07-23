@@ -144,7 +144,7 @@ public class ChienDaoImpl implements IChienDao {
 			ps.setInt(4, newChien.getCouleur().getIdCouleur());
 			ps.setInt(5, newChien.getRace().getIdRace());
 			ps.setInt(6, chien.getIdPuceChien());
-			ps.setInt(7, chien.getUtilisateur().getId());
+			ps.setInt(7, newChien.getUtilisateur().getId());
 			ps.executeUpdate();
 			return newChien;
 		} catch (SQLException e) {

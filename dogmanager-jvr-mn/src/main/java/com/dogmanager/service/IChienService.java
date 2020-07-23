@@ -10,7 +10,7 @@ public interface IChienService {
 
 	public List<Chien> getChiens();
 
-	public Chien getChiensById(int id);
+	public Chien getChienById(int id);
 
 	public List<Chien> getChiensByUtilisateurId(int id);
 
