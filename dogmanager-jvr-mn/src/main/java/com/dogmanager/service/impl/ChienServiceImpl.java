@@ -33,4 +33,13 @@ public class ChienServiceImpl implements IChienService {
 		return chienDao.getChiensByUtilisateurId(id);
 	}
 
+	@Override
+	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace, int idUtilisateur) {
+		chienDao.ajouterChien(idPuce, nomChien, ageChien, idCouleur, idRace, idUtilisateur);
+	}
+
+	@Override
+	public void deleteChienById(int idPuce) {
+		chienDao.deleteChienById(idPuce);
+	}
 }
