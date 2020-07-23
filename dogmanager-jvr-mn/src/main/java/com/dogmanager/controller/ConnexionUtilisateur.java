@@ -11,14 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.controller.conf.AbstractServletController;
-import com.dogmanager.service.impl.UtilisateurServiceImpl;
+import com.dogmanager.service.IUtilisateurService;
 
 @WebServlet("/login")
 public class ConnexionUtilisateur extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	UtilisateurServiceImpl userServiceImp;
+	IUtilisateurService userServiceImp;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +29,10 @@ public class ConnexionUtilisateur extends AbstractServletController {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Utilisateur utilisateur = userServiceImp.connexion(request);
+
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+		Utilisateur utilisateur = userServiceImp.connexion(login, password);
 		if (utilisateur != null) {
 			request.getSession().setAttribute("utilisateur", utilisateur);
 			response.sendRedirect("liste-utilisateur");

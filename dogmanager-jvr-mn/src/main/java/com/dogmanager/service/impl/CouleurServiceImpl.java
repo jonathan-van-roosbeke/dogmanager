@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dogmanager.bean.Couleur;
 import com.dogmanager.dao.ICouleurDao;
+import com.dogmanager.service.ICouleurService;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
-public class CouleurServiceImpl implements ICouleurDao {
+public class CouleurServiceImpl implements ICouleurService {
 
 	@Autowired
 	ICouleurDao couleurDao;

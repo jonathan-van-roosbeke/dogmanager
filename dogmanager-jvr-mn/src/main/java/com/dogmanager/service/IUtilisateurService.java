@@ -1,13 +1,15 @@
 package com.dogmanager.service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.dogmanager.bean.Utilisateur;
 
 public interface IUtilisateurService {
 
-	Utilisateur connexion(HttpServletRequest request);
+	public Utilisateur connexion(String login, String password);
 
-	public boolean inscription(HttpServletRequest request);
+	public boolean inscription(Utilisateur utilisateur);
+
+	public Utilisateur selectUtilisateurtById(int id);
+
+	public int deleteByLogin(String login);
 
 }

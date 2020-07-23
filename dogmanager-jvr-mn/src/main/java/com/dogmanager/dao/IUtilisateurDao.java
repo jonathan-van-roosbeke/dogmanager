@@ -6,7 +6,7 @@ public interface IUtilisateurDao {
 
 	public Utilisateur connexion(String login, String password);
 
-	public int inscription(Utilisateur utilisateur);
+	public boolean inscription(Utilisateur utilisateur);
 
 	public Utilisateur selectUtilisateurtById(int id);
 

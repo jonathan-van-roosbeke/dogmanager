@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dogmanager.bean.Race;
 import com.dogmanager.dao.IRaceDao;
+import com.dogmanager.service.IRaceService;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
-public class RaceServiceImpl implements IRaceDao {
+public class RaceServiceImpl implements IRaceService {
 
 	@Autowired
 	IRaceDao raceDao;

@@ -17,6 +17,9 @@ import com.dogmanager.bean.Race;
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.dao.IChienDao;
 import com.dogmanager.dao.conf.IDatabaseConnection;
+import com.dogmanager.service.ICouleurService;
+import com.dogmanager.service.IRaceService;
+import com.dogmanager.service.IUtilisateurService;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +32,13 @@ import lombok.NoArgsConstructor;
 public class ChienDaoImpl implements IChienDao {
 
 	Connection connection;
+
+	@Autowired
+	IUtilisateurService utilisateurService;
+	@Autowired
+	IRaceService raceService;
+	@Autowired
+	ICouleurService couleurService;
 
 	@Autowired
 	public ChienDaoImpl(@Qualifier("connexionMariadb") IDatabaseConnection databaseConnection) {
@@ -60,10 +70,6 @@ public class ChienDaoImpl implements IChienDao {
 				race.setNomRace(rs.getString("r.nom_race"));
 				couleur.setIdCouleur(rs.getInt("c.id_couleur"));
 				couleur.setCouleur(rs.getString("c.couleur"));
-				utilisateur.setId(rs.getInt("u.id_utilisateur"));
-				utilisateur.setNom(rs.getString("u.nom_utilisateur"));
-				utilisateur.setPrenom(rs.getString("u.prenom_utilisateur"));
-				utilisateur.setLogin(rs.getString("u.login"));
 				utilisateur.setLogin(rs.getString("u.password"));
 
 				chien.setCouleur(couleur);
@@ -83,36 +89,21 @@ public class ChienDaoImpl implements IChienDao {
 	public List<Chien> getChiensByUtilisateurId(int id) {
 		List<Chien> chiens = new ArrayList<>();
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, "
-					+ "r.id_race, r.nom_race, c.id_couleur, c.couleur, "
-					+ "u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password "
-					+ "FROM chien AS ch " + "JOIN " + "race AS r " + "ON ch.id_race = r.id_race " + "JOIN "
-					+ "couleur AS c " + "ON ch.id_couleur = c.id_couleur " + "JOIN " + "utilisateur AS u "
-					+ "ON ch.id_utilisateur = u.id_utilisateur " + "WHERE u.id_utilisateur = (?)");
+			PreparedStatement ps = connection.prepareStatement(
+					"SELECT ch.*, r.*, c.*  " + "FROM chien AS ch " + "JOIN race AS r " + "ON ch.id_race = r.id_race "
+							+ "JOIN  couleur AS c " + "ON ch.id_couleur = c.id_couleur  " + "JOIN utilisateur AS u "
+							+ "ON ch.id_utilisateur = u.id_utilisateur " + "WHERE u.id_utilisateur = ?;");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Chien chien = new Chien();
-				Couleur couleur = new Couleur();
-				Race race = new Race();
-				Utilisateur utilisateur = new Utilisateur();
 
 				chien.setIdPuceChien(rs.getInt("ch.id_puce_chien"));
 				chien.setNomChien(rs.getString("ch.nom_chien"));
 				chien.setAgeChien(rs.getInt("ch.age_chien"));
-				race.setIdRace(rs.getInt("r.id_race"));
-				race.setNomRace(rs.getString("r.nom_race"));
-				couleur.setIdCouleur(rs.getInt("c.id_couleur"));
-				couleur.setCouleur(rs.getString("c.couleur"));
-				utilisateur.setId(rs.getInt("u.id_utilisateur"));
-				utilisateur.setNom(rs.getString("u.nom_utilisateur"));
-				utilisateur.setPrenom(rs.getString("u.prenom_utilisateur"));
-				utilisateur.setLogin(rs.getString("u.login"));
-				utilisateur.setLogin(rs.getString("u.password"));
-
-				chien.setCouleur(couleur);
-				chien.setRace(race);
-				chien.setUtilisateur(utilisateur);
+				chien.setCouleur(couleurService.getCouleurById(rs.getInt("ch.id_couleur")));
+				chien.setRace(raceService.getRaceById(rs.getInt("ch.id_race")));
+				chien.setUtilisateur(utilisateurService.selectUtilisateurtById(id));
 
 				chiens.add(chien);
 			}
@@ -135,22 +126,59 @@ public class ChienDaoImpl implements IChienDao {
 			ps.setInt(5, idRace);
 			ps.setInt(6, idUtilisateur);
 			ps.executeUpdate();
-					
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
+	public Chien update(Chien chien, Chien newChien) {
+
+		String query = "UPDATE chien SET id_puce_chien = ?, nom_chien = ?, age_chien =?, id_couleur=?, id_race=? WHERE id_puce_chien = ?  and id_utilisateur = ?; ";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, newChien.getIdPuceChien());
+			ps.setString(2, newChien.getNomChien());
+			ps.setInt(3, newChien.getAgeChien());
+			ps.setInt(4, newChien.getCouleur().getIdCouleur());
+			ps.setInt(5, newChien.getRace().getIdRace());
+			ps.setInt(6, chien.getIdPuceChien());
+			ps.setInt(7, chien.getUtilisateur().getId());
+			ps.executeUpdate();
+			return newChien;
+		} catch (SQLException e) {
+
+		}
+		return null;
+	}
+
+	@Override
 	public void deleteChienById(int idPuce) {
 		try {
-			PreparedStatement ps = connection.prepareStatement(
-					"delete from chien where id_puce_chien = ?");
+			PreparedStatement ps = connection.prepareStatement("delete from chien where id_puce_chien = ?");
 			ps.setInt(1, idPuce);
 			ps.executeUpdate();
-					
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Chien getChienById(int idPuce) {
+		try {
+			PreparedStatement ps = connection.prepareStatement("select * from chien where id_puce_chien = ?");
+			ps.setInt(1, idPuce);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				return new Chien(rs.getInt(1), rs.getString(2), rs.getInt(3),
+						couleurService.getCouleurById(rs.getInt(4)), raceService.getRaceById(rs.getInt(5)),
+						utilisateurService.selectUtilisateurtById(rs.getInt(6)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
