@@ -16,11 +16,11 @@
 <body>
     <div class="container">
         <h3>Creation de compte</h3>
-        <form action="CreerUtilisateurServlet" method="post">
-            <p>nom : <input class="form-control" name="nom-utilisateur" type="text" placeholder="nom" pattern="[a-zA-Z]+" required></p>
-            <p>prenom : <input class="form-control" name="prenom-utilisateur"  type="text" placeholder="prenom" pattern="[a-zA-Z]+" required></p>
-            <p>pseudo : <input class="form-control" name="pseudo-utilisateur" type="text" placeholder="pseudo" pattern="[a-zA-Z]+" required></p>
-            <p>password : <input class="form-control" name="password-utilisateur" type="password" required></p>
+        <form action="inscription" method="post">
+            <p>nom : <input class="form-control" name="nom" type="text" placeholder="nom" pattern="[a-zA-Z]+" required></p>
+            <p>prenom : <input class="form-control" name="prenom"  type="text" placeholder="prenom" pattern="[a-zA-Z]+" required></p>
+            <p>pseudo : <input class="form-control" name="login" type="text" placeholder="pseudo" pattern="[a-zA-Z]+" required></p>
+            <p>password : <input class="form-control" name="password" type="password" required></p>
             <button class="btn btn-success" type="submit">valider</button>
            <button class="btn btn-danger" type="submit">reset</button>
         </form>

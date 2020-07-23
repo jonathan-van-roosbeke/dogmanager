@@ -17,10 +17,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Repository
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Repository
 public class UtilisateurDaoImpl implements IUtilisateurDao {
 
 	private Connection connection;
