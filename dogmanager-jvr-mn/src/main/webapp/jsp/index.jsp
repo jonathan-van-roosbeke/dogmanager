@@ -16,10 +16,8 @@
 	<div class="container">
 		<div class="background">
 			<form action="login" method="post">
-				<label for="inputName">Username</label> <input class="form-control"
-					name="login" type="text" pattern="[a-zA-Z]+" required> <label
-					for="inputName">Password</label> <input class="form-control"
-					name="password" type="password" required> 
+				<label for="inputName">Username</label> <input class="form-control" name="login" type="text" required>
+					<label for="inputName">Password</label> <input class="form-control" name="password" type="password" required> 
 					<span style="color: red;"><c:out value="${erreur}"/></br></span>
 				<button type="submit" class="btn btn-success">Login</button>
 			</form>

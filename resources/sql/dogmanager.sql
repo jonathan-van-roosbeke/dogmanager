@@ -111,5 +111,16 @@ select * from UTILISATEUR;
 select * from RACE;
 select * from COULEUR;
 
-select * from UTILISATEUR u
-join chien c on c.id_utilisateur = u.ID_UTILISATEUR;
+select * from UTILISATEUR u join chien c on c.id_utilisateur = u.ID_UTILISATEUR where u.ID_UTILISATEUR = 1;
+
+SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, r.id_race, r.nom_race, c.id_couleur, c.couleur, u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password
+FROM chien AS ch
+   JOIN
+   race AS r
+   ON ch.id_race = r.id_race
+   JOIN
+   couleur AS c
+   ON ch.id_couleur = c.id_couleur
+   JOIN
+   utilisateur AS u
+   ON ch.id_utilisateur = u.id_utilisateur;
