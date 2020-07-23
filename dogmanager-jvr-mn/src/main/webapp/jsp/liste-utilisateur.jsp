@@ -13,13 +13,6 @@
 <title>Liste chien</title>
 </head>
 <body>
-
-	<div id="header" style="position: fixed;">
-		<form action="" method="get">
-			<button class="btn btn-success" type="submit">Ajouter un chien</button>
-		</form>
-	</div>
-
 	<div class="container">
 		<table class="table" id="myTable">
 			<thead>
@@ -43,6 +36,7 @@
 			</c:forEach>
 			</tbody>
 		</table>
+		<button class="btn btn-success" type="submit">Ajouter un chien</button>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
