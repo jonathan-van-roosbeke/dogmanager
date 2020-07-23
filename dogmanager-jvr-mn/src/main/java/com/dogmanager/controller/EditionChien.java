@@ -39,7 +39,6 @@ public class EditionChien extends AbstractServletController {
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
-			idChien = Integer.parseInt(request.getParameter("id_puce_chien"));
 			request.setAttribute("races", raceService.getRaces());
 			request.setAttribute("couleurs", couleurService.getCouleurs());
 			request.getRequestDispatcher("/jsp/editer-chien.jsp").forward(request, response);
