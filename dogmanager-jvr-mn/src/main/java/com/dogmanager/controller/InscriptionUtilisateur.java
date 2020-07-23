@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.controller.conf.AbstractServletController;
-import com.dogmanager.service.impl.UtilisateurServiceImpl;
+import com.dogmanager.service.IUtilisateurService;
 
 @WebServlet("/inscription")
 public class InscriptionUtilisateur extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
 	@Autowired
-	UtilisateurServiceImpl userServiceImp;
+	IUtilisateurService userServiceImp;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -25,12 +26,19 @@ public class InscriptionUtilisateur extends AbstractServletController {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String nom = request.getParameter("nom");
+		String prenom = request.getParameter("prenom");
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
 
-		if (userServiceImp.inscription(request)) {
-			response.sendRedirect("login");
-		} else {
-			request.setAttribute("error", "");
-			request.getRequestDispatcher("/jsp/creer-utilisateur.jsp").forward(request, response);
+		// TODO check all data
+		if (nom != null && prenom != null && login != null && password != null) {
+			if (userServiceImp.inscription(new Utilisateur(nom, prenom, login, password))) {
+				response.sendRedirect("login");
+			} else {
+				request.setAttribute("error", "");
+				request.getRequestDispatcher("/jsp/creer-utilisateur.jsp").forward(request, response);
+			}
 		}
 	}
 }

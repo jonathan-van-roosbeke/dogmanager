@@ -29,8 +29,8 @@ public class UtilisateurDaoTest {
 		utilisateur.setPrenom("momo123");
 		utilisateur.setLogin("momo1235");
 		utilisateur.setPassword("momo123");
-		int resultat = utilisateurDao.inscription(utilisateur);
-		assertNotEquals(0, resultat);
+		boolean resultat = utilisateurDao.inscription(utilisateur);
+		assertNotEquals(false, resultat);
 	}
 
 	@Test

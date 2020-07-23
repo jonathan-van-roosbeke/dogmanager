@@ -50,7 +50,7 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 	}
 
 	@Override
-	public int inscription(Utilisateur utilisateur) {
+	public boolean inscription(Utilisateur utilisateur) {
 		try {
 			PreparedStatement ps = connection.prepareStatement(
 					"insert into utilisateur (nom_utilisateur, prenom_utilisateur, login, password) value(?,?,?,md5(?))");
@@ -58,11 +58,11 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 			ps.setString(2, utilisateur.getPrenom());
 			ps.setString(3, utilisateur.getLogin());
 			ps.setString(4, utilisateur.getPassword());
-			return ps.executeUpdate();
+			return ps.executeUpdate() != 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return false;
 	}
 
 	@Override

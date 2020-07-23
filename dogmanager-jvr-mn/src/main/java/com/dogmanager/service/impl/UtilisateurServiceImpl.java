@@ -1,7 +1,5 @@
 package com.dogmanager.service.impl;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,22 +22,25 @@ public class UtilisateurServiceImpl implements IUtilisateurService {
 	IUtilisateurDao utilisateurDao;
 
 	@Override
-	public Utilisateur connexion(HttpServletRequest request) {
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
+	public Utilisateur connexion(String login, String password) {
 
 		return utilisateurDao.connexion(login, password);
 	}
 
 	@Override
-	public boolean inscription(HttpServletRequest request) {
-		String nom = request.getParameter("nom");
-		String prenom = request.getParameter("prenom");
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
-		if (nom != null && prenom != null && login != null && password != null) {
-			return utilisateurDao.inscription(new Utilisateur(nom, prenom, login, password)) != 0;
-		}
-		return false;
+	public boolean inscription(Utilisateur utilisateur) {
+
+		return utilisateurDao.inscription(utilisateur);
+	}
+
+	@Override
+	public Utilisateur selectUtilisateurtById(int id) {
+
+		return utilisateurDao.selectUtilisateurtById(id);
+	}
+
+	@Override
+	public int deleteByLogin(String login) {
+		return utilisateurDao.deleteByLogin(login);
 	}
 }

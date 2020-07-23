@@ -41,4 +41,14 @@ public class ChienServiceImpl implements IChienService {
 	public void deleteChienById(int idPuce) {
 		chienDao.deleteChienById(idPuce);
 	}
+
+	public Chien update(Chien chien, Chien newChien) {
+
+		return chienDao.update(chien, newChien);
+	}
+
+	@Override
+	public Chien getChiensById(int id) {
+		return chienDao.getChienById(id);
+	}
 }
