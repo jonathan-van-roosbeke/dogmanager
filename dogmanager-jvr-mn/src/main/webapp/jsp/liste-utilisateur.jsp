@@ -10,11 +10,12 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous" />
+	<link rel="stylesheet" href="css/style.css">
 <title>Liste chien</title>
 </head>
 <body>
 	<div class="container">
-		<table class="table" id="myTable">
+		<table class="table table-hover" id="myTable">
 			<thead>
 				<tr>
 					<th scope="col">Id</th>
@@ -26,8 +27,8 @@
 			</thead>
 			<tbody>
 			<c:forEach items="${chiens}" var="chien">
-				<tr>
-					<td>${chien.idPuceChien}</td>
+				<tr class="hand" data-href='#'>
+					<td class="user-select-none id-chien">${chien.idPuceChien}</td>
 					<td>${chien.race.nomRace}</td>
 					<td>${chien.nomChien}</td>
 					<td>${chien.couleur.couleur}</td>
@@ -52,5 +53,7 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
+		
+		<script src="js/select.js"></script>
 </body>
 </html>

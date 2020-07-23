@@ -26,6 +26,7 @@ public class EditionChien extends AbstractServletController {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		System.out.println("ok");
 		request.setAttribute("races", raceService.getRaces());
 		request.setAttribute("couleurs", couleurService.getCouleurs());
 		request.getRequestDispatcher("/jsp/editer-chien.jsp").forward(request, response);

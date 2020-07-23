@@ -129,3 +129,9 @@ FROM chien AS ch
 insert into chien (id_puce_chien, nom_chien, age_chien, id_couleur, id_race, id_utilisateur) values (212, 'Seal, northern elephant', 1, 3, 9, 1);
 
 delete from chien where id_puce_chien = 111;
+
+delete from chien where id_puce_chien = 7;
+delete from chien where id_puce_chien = 4628;
+delete from chien where id_puce_chien = 12345;
+delete from chien where id_puce_chien = 899744;
+delete from chien where id_puce_chien = 13213213;
