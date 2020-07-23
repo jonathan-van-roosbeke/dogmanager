@@ -18,23 +18,40 @@ public class ChienDaoTest {
 
 	private static ApplicationContext context;
 	private static IChienDao chien;
-	
+
 	@BeforeAll
 	public static void initAll() {
 		context = MyContextFactory.getContext(ContextConfigurationType.CLASSPATH);
 		chien = context.getBean(IChienDao.class);
 	}
-	
+
 	@Test
 	public void getChiensTest() {
 		List<Chien> chiens = chien.getChiens();
 		assertNotNull(chiens);
 	}
-	
+
 	@Test
 	public void getChiensByUtilisateurIdTest() {
-		List<Chien> chiens = chien.getChiensByUtilisateurId(1);
+		List<Chien> chiens = chien.getChiensByUtilisateurId(2);
+		assertNotNull(chiens);
+		assertEquals(chiens.size(), 2);
+	}
+
+	@Test
+	public void ajoutChienTest() {
+		chien.ajouterChien(111, "coucou-test", 5, 1, 1, 2);
+		List<Chien> chiens = chien.getChiensByUtilisateurId(2);
 		assertNotNull(chiens);
 		assertEquals(chiens.size(), 3);
+		
+	}
+	
+	@Test
+	public void deleteChienTest() {
+		chien.deleteChienById(111);
+		List<Chien> chiens = chien.getChiensByUtilisateurId(2);
+		assertNotNull(chiens);
+		assertEquals(chiens.size(), 2);
 	}
 }
