@@ -50,7 +50,7 @@ public class AjoutChienServlet extends AbstractServletController {
 		int idRace = Integer.parseInt(request.getParameter("race"));
 		String nomChien = request.getParameter("nom-chien");
 		int idCouleur = Integer.parseInt(request.getParameter("couleur"));
-		int ageChien = Integer.parseInt(request.getParameter("numero-puce"));
+		int ageChien = Integer.parseInt(request.getParameter("age"));
 		
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("utilisateur") == null) {
