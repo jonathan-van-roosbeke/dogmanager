@@ -122,4 +122,35 @@ public class ChienDaoImpl implements IChienDao {
 		}
 		return chiens;
 	}
+
+	@Override
+	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace, int idUtilisateur) {
+		try {
+			PreparedStatement ps = connection.prepareStatement(
+					"insert into chien (id_puce_chien, nom_chien, age_chien, id_couleur, id_race, id_utilisateur) values (?, ?, ?, ?, ?, ?);");
+			ps.setInt(1, idPuce);
+			ps.setString(2, nomChien);
+			ps.setInt(3, ageChien);
+			ps.setInt(4, idCouleur);
+			ps.setInt(5, idRace);
+			ps.setInt(6, idUtilisateur);
+			ps.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteChienById(int idPuce) {
+		try {
+			PreparedStatement ps = connection.prepareStatement(
+					"delete from chien where id_puce_chien = ?");
+			ps.setInt(1, idPuce);
+			ps.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
