@@ -19,10 +19,11 @@
 <body>
     <div class="container">
         <h3>Editer un chien</h3>
-        <form action="EditChienServlet" method="post">
+        <form action="EditionChien" method="post">
+            
             <p>numero-puce : <input class="form-control" name="numero-puce" value="numero-puce" type="text" placeholder="numero-puce"></p>
 			  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Race</label>
-			      <select class="custom-select my-1 mr-sm-2" id="race">
+			      <select class="custom-select my-1 mr-sm-2" id="race" name ="race">
 			    	<c:forEach items="${races}" var="races">
 			        <option value="${races.idRace}">${races.nomRace}</option>
 			    	</c:forEach>
@@ -31,7 +32,7 @@
             
             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">couleur</label>
 			  
-			  <select class="custom-select my-1 mr-sm-2" id="couleur">
+			  <select class="custom-select my-1 mr-sm-2" id="couleur" name ="couleur">
 			    <c:forEach items="${couleurs}" var="couleurs">
 			        <option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
 			    </c:forEach>
