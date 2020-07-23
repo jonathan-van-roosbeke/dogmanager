@@ -17,13 +17,20 @@ import com.dogmanager.util.MyContextFactory;
 public class CouleurDaoTest {
 	private static ApplicationContext context;
 	private static ICouleurDao couleur;
-	
+
 	@BeforeAll
 	public static void initAll() {
 		context = MyContextFactory.getContext(ContextConfigurationType.CLASSPATH);
 		couleur = context.getBean(ICouleurDao.class);
 	}
-	
+
+	@Test
+	public void getCouleurByIdTest() {
+		Couleur couleurs = couleur.getCouleurById(1);
+		assertNotNull(couleurs);
+		assertEquals(couleurs.getCouleur(), "noir");
+	}
+
 	@Test
 	public void getCouleursTest() {
 		List<Couleur> couleurs = couleur.getCouleurs();

@@ -35,7 +35,7 @@ public class UtilisateurDaoTest {
 
 	@Test
 	public void connexion() {
-		Utilisateur user = utilisateurDao.connexion("jm333", "jm333");
+		Utilisateur user = utilisateurDao.connexion("momo1235", "momo123");
 		assertNotNull(user);
 		assertNotEquals(0, user.getId());
 	}

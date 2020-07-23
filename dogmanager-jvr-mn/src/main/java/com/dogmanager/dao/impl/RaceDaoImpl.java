@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.dogmanager.bean.Race;
-import com.dogmanager.bean.Race;
 import com.dogmanager.dao.IRaceDao;
 import com.dogmanager.dao.conf.IDatabaseConnection;
 
@@ -25,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RaceDaoImpl implements IRaceDao {
-	
+
 	private Connection connection;
 
 	@Autowired
@@ -37,8 +36,7 @@ public class RaceDaoImpl implements IRaceDao {
 	public List<Race> getRaces() {
 		List<Race> races = new ArrayList<>();
 		try {
-			PreparedStatement ps = connection.prepareStatement(
-					"select * from race");
+			PreparedStatement ps = connection.prepareStatement("select * from race");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Race r = new Race();
@@ -53,4 +51,18 @@ public class RaceDaoImpl implements IRaceDao {
 		return races;
 	}
 
+	@Override
+	public Race getRaceById(int id) {
+		try {
+			PreparedStatement ps = connection.prepareStatement("select * from race where id_race =?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				return new Race(rs.getInt(1), rs.getString(2));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

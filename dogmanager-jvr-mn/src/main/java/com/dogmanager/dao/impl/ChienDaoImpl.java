@@ -29,37 +29,30 @@ import lombok.NoArgsConstructor;
 public class ChienDaoImpl implements IChienDao {
 
 	Connection connection;
-	
+
 	@Autowired
 	public ChienDaoImpl(@Qualifier("connexionMariadb") IDatabaseConnection databaseConnection) {
 		this.connection = databaseConnection.getConnection();
 	}
-	
+
 	@Override
 	public List<Chien> getChiens() {
 		List<Chien> chiens = new ArrayList<>();
 		try {
-			PreparedStatement ps = connection.prepareStatement(
-					"SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, "
-							+ "r.id_race, r.nom_race, c.id_couleur, c.couleur, "
-							+ "u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password " + 
-					"FROM chien AS ch " + 
-					"JOIN " + 
-					"race AS r " + 
-					"ON ch.id_race = r.id_race " + 
-					"JOIN " + 
-					"couleur AS c " + 
-					"ON ch.id_couleur = c.id_couleur " + 
-					"JOIN " + 
-					"utilisateur AS u " + 
-					"ON ch.id_utilisateur = u.id_utilisateur;");
+			PreparedStatement ps = connection.prepareStatement("SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, "
+					+ "r.id_race, r.nom_race, c.id_couleur, c.couleur, "
+					+ "u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password "
+					+ "FROM chien AS ch " + "JOIN " + "race AS r " + "ON ch.id_race = r.id_race " + "JOIN "
+					+ "couleur AS c " + "ON ch.id_couleur = c.id_couleur " + "JOIN " + "utilisateur AS u "
+					+ "ON ch.id_utilisateur = u.id_utilisateur;");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
+				// TODO
 				Chien chien = new Chien();
 				Couleur couleur = new Couleur();
 				Race race = new Race();
 				Utilisateur utilisateur = new Utilisateur();
-				
+
 				chien.setIdPuceChien(rs.getInt("ch.id_puce_chien"));
 				chien.setNomChien(rs.getString("ch.nom_chien"));
 				chien.setAgeChien(rs.getInt("ch.age_chien"));
@@ -72,11 +65,11 @@ public class ChienDaoImpl implements IChienDao {
 				utilisateur.setPrenom(rs.getString("u.prenom_utilisateur"));
 				utilisateur.setLogin(rs.getString("u.login"));
 				utilisateur.setLogin(rs.getString("u.password"));
-				
+
 				chien.setCouleur(couleur);
 				chien.setRace(race);
 				chien.setUtilisateur(utilisateur);
-				
+
 				chiens.add(chien);
 			}
 
@@ -90,21 +83,12 @@ public class ChienDaoImpl implements IChienDao {
 	public List<Chien> getChiensByUtilisateurId(int id) {
 		List<Chien> chiens = new ArrayList<>();
 		try {
-			PreparedStatement ps = connection.prepareStatement(
-					"SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, "
-							+ "r.id_race, r.nom_race, c.id_couleur, c.couleur, "
-							+ "u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password " + 
-					"FROM chien AS ch " + 
-					"JOIN " + 
-					"race AS r " + 
-					"ON ch.id_race = r.id_race " + 
-					"JOIN " + 
-					"couleur AS c " + 
-					"ON ch.id_couleur = c.id_couleur " + 
-					"JOIN " + 
-					"utilisateur AS u " + 
-					"ON ch.id_utilisateur = u.id_utilisateur " +
-					"WHERE u.id_utilisateur = (?)");
+			PreparedStatement ps = connection.prepareStatement("SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, "
+					+ "r.id_race, r.nom_race, c.id_couleur, c.couleur, "
+					+ "u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password "
+					+ "FROM chien AS ch " + "JOIN " + "race AS r " + "ON ch.id_race = r.id_race " + "JOIN "
+					+ "couleur AS c " + "ON ch.id_couleur = c.id_couleur " + "JOIN " + "utilisateur AS u "
+					+ "ON ch.id_utilisateur = u.id_utilisateur " + "WHERE u.id_utilisateur = (?)");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -112,7 +96,7 @@ public class ChienDaoImpl implements IChienDao {
 				Couleur couleur = new Couleur();
 				Race race = new Race();
 				Utilisateur utilisateur = new Utilisateur();
-				
+
 				chien.setIdPuceChien(rs.getInt("ch.id_puce_chien"));
 				chien.setNomChien(rs.getString("ch.nom_chien"));
 				chien.setAgeChien(rs.getInt("ch.age_chien"));
@@ -125,11 +109,11 @@ public class ChienDaoImpl implements IChienDao {
 				utilisateur.setPrenom(rs.getString("u.prenom_utilisateur"));
 				utilisateur.setLogin(rs.getString("u.login"));
 				utilisateur.setLogin(rs.getString("u.password"));
-				
+
 				chien.setCouleur(couleur);
 				chien.setRace(race);
 				chien.setUtilisateur(utilisateur);
-				
+
 				chiens.add(chien);
 			}
 
