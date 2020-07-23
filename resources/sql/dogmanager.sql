@@ -111,7 +111,7 @@ select * from UTILISATEUR;
 select * from RACE;
 select * from COULEUR;
 
-select * from UTILISATEUR u join chien c on c.id_utilisateur = u.ID_UTILISATEUR where u.ID_UTILISATEUR = 1;
+select * from UTILISATEUR u join chien c on c.id_utilisateur = u.ID_UTILISATEUR where u.ID_UTILISATEUR = 2;
 
 SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, r.id_race, r.nom_race, c.id_couleur, c.couleur, u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password
 FROM chien AS ch
@@ -123,4 +123,9 @@ FROM chien AS ch
    ON ch.id_couleur = c.id_couleur
    JOIN
    utilisateur AS u
-   ON ch.id_utilisateur = u.id_utilisateur;
+   ON ch.id_utilisateur = u.id_utilisateur
+   where u.id_utilisateur = 1;
+   
+insert into chien (id_puce_chien, nom_chien, age_chien, id_couleur, id_race, id_utilisateur) values (212, 'Seal, northern elephant', 1, 3, 9, 1);
+
+delete from chien where id_puce_chien = 111;

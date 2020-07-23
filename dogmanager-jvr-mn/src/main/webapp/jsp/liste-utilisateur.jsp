@@ -36,7 +36,9 @@
 			</c:forEach>
 			</tbody>
 		</table>
-		<button class="btn btn-success" type="submit">Ajouter un chien</button>
+		<form action="ajouter-chien">
+			<button class="btn btn-success" type="submit">Ajouter un chien</button>
+		</form>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

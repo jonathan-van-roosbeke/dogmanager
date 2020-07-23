@@ -36,7 +36,17 @@ public class ListeChienUtilisateurServlet extends AbstractServletController {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("utilisateur") == null) {
+			request.getRequestDispatcher("/login").forward(request, response);
+		} else {
+			List<Chien> chiens = chienService
+					.getChiensByUtilisateurId(((Utilisateur) session.getAttribute("utilisateur")).getId());
+			request.setAttribute("chiens", chiens);
+			this.getServletContext().getRequestDispatcher("/jsp/liste-utilisateur.jsp").forward(request, response);
+		}
 	}
 
 }
