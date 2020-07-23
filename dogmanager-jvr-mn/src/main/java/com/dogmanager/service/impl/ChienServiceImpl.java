@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
-
 public class ChienServiceImpl implements IChienService {
 
 	@Autowired
