@@ -32,13 +32,13 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${chiens}" var="chiens">
+			<c:forEach items="${chiens}" var="chien">
 				<tr>
-					<td>${chiens.idPuceChien}</td>
-					<td>${chiens.idRace}</td>
-					<td>${chiens.nomChien}</td>
-					<td>${chiens.idCouleur}</td>
-					<td>${chiens.ageChien}</td>
+					<td>${chien.idPuceChien}</td>
+					<td>${chien.race.nomRace}</td>
+					<td>${chien.nomChien}</td>
+					<td>${chien.couleur.couleur}</td>
+					<td>${chien.ageChien}</td>
 				</tr>
 			</c:forEach>
 			</tbody>
