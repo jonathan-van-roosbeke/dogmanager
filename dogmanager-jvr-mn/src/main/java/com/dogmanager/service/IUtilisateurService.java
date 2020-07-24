@@ -11,8 +11,6 @@ public interface IUtilisateurService {
 
 	public RetourService<Utilisateur> inscription(Utilisateur utilisateur);
 
-//	public Utilisateur selectUtilisateurtById(int id);
-
 	public int deleteByLogin(String login);
 
 }

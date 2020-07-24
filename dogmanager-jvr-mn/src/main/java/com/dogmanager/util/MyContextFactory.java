@@ -5,6 +5,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class MyContextFactory {
+	private MyContextFactory() {
+	}
 
 	private static ApplicationContext applicationContext = null;
 

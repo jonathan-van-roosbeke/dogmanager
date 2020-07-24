@@ -44,8 +44,4 @@ public class InscriptionUtilisateur extends AbstractServletController {
 		}
 		request.getRequestDispatcher("/jsp/creer-utilisateur.jsp").forward(request, response);
 	}
-
-	public static void main(String[] args) {
-		System.out.println("de".matches("[a-zA-Z]{3,}"));
-	}
 }
