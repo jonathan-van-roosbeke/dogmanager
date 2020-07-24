@@ -25,8 +25,8 @@
             <p>prenom : <input class="form-control" name="prenom"  type="text" placeholder="prenom" pattern="[a-zA-Z]{3,}" required></p>
             <p>pseudo : <input class="form-control" name="login" type="text" placeholder="pseudo" pattern="[0-9a-zA-Z]{4,}"  required></p>
             <p>password : <input class="form-control" name="password" type="password" pattern=".{6,}" required></p>
-            <button class="btn btn-success" type="submit">valider</button>
     	<span style="color: red;"><c:out value="${erreur}"/></br></span>
+            <button class="btn btn-success" type="submit">valider</button>
            <button class="btn btn-danger" type="submit">reset</button>
            
         </form>
