@@ -3,15 +3,16 @@ package com.dogmanager.dao;
 import java.util.List;
 
 import com.dogmanager.bean.Chien;
+import com.dogmanager.dto.RetourService;
 
 public interface IChienDao {
-	public void update(Chien chien, int idPuce, String nomChien, int ageChien, int idCouleur, int idRace);
+	public RetourService<Chien> update(Chien chien, int idPuce, String nomChien, int ageChien, int idCouleur, int idRace);
 
 	public List<Chien> getChiens();
 
 	public List<Chien> getChiensByUtilisateurId(int id);
 
-	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace);
+	public RetourService<Chien> ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace);
 
 	public void deleteChienById(int idPuce);
 

@@ -49,6 +49,7 @@
 			</p>
 			<button class="btn btn-success" type="submit">valider</button>
 		</form>
+		<span style="color: red;"><c:out value="${erreur}"/></br></span>
 	</div>
 </body>
 

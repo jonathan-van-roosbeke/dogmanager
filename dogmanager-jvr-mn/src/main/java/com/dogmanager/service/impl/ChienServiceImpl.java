@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dogmanager.bean.Chien;
 import com.dogmanager.dao.IChienDao;
+import com.dogmanager.dto.RetourService;
 import com.dogmanager.service.IChienService;
 
 import lombok.AllArgsConstructor;
@@ -33,8 +34,8 @@ public class ChienServiceImpl implements IChienService {
 	}
 
 	@Override
-	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
-		chienDao.ajouterChien(idPuce, nomChien, ageChien, idCouleur, idRace);
+	public RetourService<Chien> ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
+		return chienDao.ajouterChien(idPuce, nomChien, ageChien, idCouleur, idRace);
 	}
 
 	@Override
@@ -42,8 +43,8 @@ public class ChienServiceImpl implements IChienService {
 		chienDao.deleteChienById(idPuce);
 	}
 
-	public void update(Chien chien, int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
-		chienDao.update(chien, idPuce, nomChien, ageChien, idCouleur, idRace);
+	public RetourService<Chien> update(Chien chien, int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
+		return chienDao.update(chien, idPuce, nomChien, ageChien, idCouleur, idRace);
 	}
 
 	@Override
