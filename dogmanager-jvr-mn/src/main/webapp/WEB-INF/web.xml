@@ -6,10 +6,9 @@
     <display-name>Dogmanager</display-name>
     <welcome-file-list>
         <!-- Lien de lancement de l'appli -->
-        <welcome-file>init.do</welcome-file>
+        <welcome-file>login</welcome-file>
     </welcome-file-list>
-    
-<!--     declaration de l'application context dans le serveur -->
+<!--declaration de l'application context dans le serveur -->
     <listener>
         <listener-class>
             org.springframework.web.context.ContextLoaderListener

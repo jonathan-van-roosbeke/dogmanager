@@ -30,9 +30,6 @@ public class EditionChien extends AbstractServletController {
 	@Autowired
 	private IChienService chienService;
 
-//	@Autowired
-//	private IUtilisateurService utilisateurService;
-
 	private String idChien;
 	private Chien chien;
 
@@ -40,7 +37,6 @@ public class EditionChien extends AbstractServletController {
 			throws ServletException, IOException {
 		session = request.getSession(false);
 		idChien = request.getParameter("id-chien");
-
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
@@ -59,12 +55,10 @@ public class EditionChien extends AbstractServletController {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		session = request.getSession(false);
-
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
 			if (idChien != null && idChien.matches("[0-9]+")) {
-
 				String nomChien = request.getParameter("nom-chien");
 				int idPuceChien = Integer.parseInt(request.getParameter("numero-puce"));
 				int race = Integer.parseInt(request.getParameter("race"));

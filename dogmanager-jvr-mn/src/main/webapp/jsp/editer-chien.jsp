@@ -19,8 +19,10 @@
 		<h3>Editer un chien</h3>
 		<form action="EditionChien" method="post">
 			<p>
-				numero-puce : <input class="form-control" id="puce-chien" 
-					name="numero-puce" value="${chien.idPuceChien}" type="text" />
+				numero-puce : <input class="form-control" id="puce-chien"
+					name="numero-puce" value="${chien.idPuceChien}" type="number"
+					placeholder="numero-puce" pattern="[0-9]+" min="1"
+					placeholder="numero-puce">
 			</p>
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Race</label>
 			<select class="custom-select my-1 mr-sm-2" id="race" name="race">
@@ -40,7 +42,7 @@
 
 			<select class="custom-select my-1 mr-sm-2" id="couleur"
 				name="couleur">
-				<option value="chien.couleur.couleur">${chien.couleur.couleur}</option>
+				<option value="${chien.couleur.idCouleur}">${chien.couleur.couleur}</option>
 				<c:forEach items="${couleurs}" var="couleurs">
 					<c:if test="${couleurs.couleur != chien.couleur.couleur }">
 						<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
@@ -49,14 +51,19 @@
 			</select>
 
 			<p>
-				age : <input class="form-control" id="age-chien" name="age"
-					value="${chien.ageChien}" type="number" pattern="[0-9]+" required />
+				age : <input class="form-control" name="age" value="age-chien"
+					type="number" placeholder="age-chien" pattern="[0-9]+" min="0"
+					max="30" required>
 			</p>
+
 			<button class="btn btn-success" type="submit">valider</button>
-			<input type="button" class="btn btn-secondary" name="reset" value="Reset" id="reset123" onclick="customReset();"/>
-			<input type="button" class="btn btn-danger" name="Delete" value="Delete" id="delete123" onclick="customDelete(${chien.idPuceChien});"/>
+			<input type="button" class="btn btn-secondary" name="reset"
+				value="Reset" id="reset123" onclick="customReset();" /> 
+			<input
+				type="button" class="btn btn-danger" name="Delete" value="Delete"
+				id="delete123" onclick="customDelete(${chien.idPuceChien});" />
 		</form>
-		
+
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -71,8 +78,9 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="js/reset.js"></script>
-	
+
 </body>
 </html>
