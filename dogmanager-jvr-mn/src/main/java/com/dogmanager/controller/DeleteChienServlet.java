@@ -16,6 +16,13 @@ import com.dogmanager.controller.conf.AbstractServletController;
 import com.dogmanager.service.IChienService;
 import com.dogmanager.service.IUtilisateurService;
 
+/**
+ * IRaceService.java Interface contenant les methodes ci-dessous.
+ * 
+ * @author Jonathan Van Roosbeke
+ * @since 24/07/2020
+ */
+
 @WebServlet("/delete")
 public class DeleteChienServlet extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
@@ -28,6 +35,17 @@ public class DeleteChienServlet extends AbstractServletController {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	}
+	
+	/**
+	 * 
+	 * POST
+	 * 
+	 * Si la session de l'utilisateur est null alors on le redirige vers la page de
+	 * login pour se connecter.
+	 * Si la session est active et que les données sont correcte on utlisie l'implémentation
+	 * de IChien service pour supprimer les chien en base de donnée et redirigé l'utilisateur sur 
+	 * la liste de chien utilisateur
+	 */
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
