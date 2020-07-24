@@ -17,6 +17,13 @@ import com.dogmanager.service.IChienService;
 import com.dogmanager.service.ICouleurService;
 import com.dogmanager.service.IRaceService;
 
+/**
+ * IRaceService.java Interface contenant les methodes ci-dessous.
+ * 
+ * @author Jonathan Van Roosbeke
+ * @since 24/07/2020
+ */
+
 @WebServlet("/EditionChien")
 public class EditionChien extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
@@ -33,6 +40,17 @@ public class EditionChien extends AbstractServletController {
 
 	private String idChien;
 	private Chien chien;
+	
+	/**
+	 * 
+	 * GET
+	 * 
+	 * Si la session de l'utilisateur est null alors on le redirige vers la page de
+	 * login pour se connecter.
+	 * Si la session de l'utilisateur est active alors on
+	 * récupère les races et couleur en base de donnée pour l'envoyer
+	 * à la jsp et montrer l'update
+	 */
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -53,6 +71,19 @@ public class EditionChien extends AbstractServletController {
 		}
 	}
 
+	/**
+	 * 
+	 * POST
+	 * 
+	 * On récupère les paramètres de la requete pour vérifier si elle sont valide Si
+	 * les paramètres ne sont pas valide alors on actualise la page pour à nouveau
+	 * entrer les paramètres du chiens.
+	 * Si les paramètres sont valide alors on envoie
+	 * la requete à l'implémentation de l'interface IChienService
+	 * On ajoute à la requete la nouvelle liste des chiens puis on redirige l'utilisateur sur la
+	 * liste de chien utlisateur
+	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		session = request.getSession(false);
