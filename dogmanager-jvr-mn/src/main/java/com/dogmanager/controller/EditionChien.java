@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dogmanager.bean.Chien;
 import com.dogmanager.controller.conf.AbstractServletController;
+import com.dogmanager.dto.RetourService;
 import com.dogmanager.service.IChienService;
 import com.dogmanager.service.ICouleurService;
 import com.dogmanager.service.IRaceService;
@@ -65,12 +66,18 @@ public class EditionChien extends AbstractServletController {
 				int couleur = Integer.parseInt(request.getParameter("couleur"));
 				int ageChien = Integer.parseInt(request.getParameter("age"));
 				// TODO check all
-				chienService.update(chienService.getChienById(Integer.parseInt(idChien)), idPuceChien, nomChien,
-						ageChien, couleur, race);
-				request.getRequestDispatcher("/liste-utilisateur").forward(request, response);
-			} else {
-				request.getRequestDispatcher("/liste-utilisateur").forward(request, response);
-			}
+				Chien chien = chienService.getChienById(Integer.parseInt(idChien));
+				if (chien != null) {
+					RetourService<Chien> retourServiceChien = chienService.update(chien, idPuceChien, nomChien, ageChien, couleur, race);
+					
+					if (retourServiceChien.isReussi()) {
+						request.getRequestDispatcher("/liste-utilisateur").forward(request, response);
+					} else {
+						request.setAttribute("erreur", retourServiceChien.getMsg());
+					}
+				}
+			} 
+			request.getRequestDispatcher("/jsp/editer-chien.jsp").forward(request, response);
 		}
 	}
 }

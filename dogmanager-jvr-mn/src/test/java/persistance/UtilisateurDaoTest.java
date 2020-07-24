@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.dao.IUtilisateurDao;
+import com.dogmanager.dto.RetourService;
 import com.dogmanager.util.ContextConfigurationType;
 import com.dogmanager.util.MyContextFactory;
 
@@ -32,8 +33,8 @@ public class UtilisateurDaoTest {
 		utilisateur.setPrenom("momo123");
 		utilisateur.setLogin("momo1235");
 		utilisateur.setPassword("momo123");
-		boolean resultat = utilisateurDao.inscription(utilisateur);
-		assertNotEquals(false, resultat);
+		RetourService<Utilisateur> resultat = utilisateurDao.inscription(utilisateur);
+		assertNotEquals(false, resultat.isReussi());
 	}
 
 	@Test
