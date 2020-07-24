@@ -74,7 +74,7 @@ public class AjoutChienServlet extends AbstractServletController {
 	 * les paramètres ne sont pas valide alors on actualise la page pour à nouveau
 	 * entrer les paramètres du chiens Si les paramètres sont valide alors on envoie
 	 * la requete à l'implémentation de l'interface IChienService On ajoute à la
-	 * requete la nouvelle liste des chiens puis on redirige l'utilisateur sur la la
+	 * requete la nouvelle liste des chiens puis on redirige l'utilisateur sur la
 	 * liste de chien utlisateur
 	 */
 
