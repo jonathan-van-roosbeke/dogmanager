@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.dao.IUtilisateurDao;
 import com.dogmanager.dao.conf.IDatabaseConnection;
+import com.dogmanager.dto.RetourService;
 import com.dogmanager.service.IChienService;
 import com.dogmanager.service.IUtilisateurService;
 
@@ -60,7 +62,8 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 	}
 
 	@Override
-	public boolean inscription(Utilisateur utilisateur) {
+	public RetourService<Utilisateur> inscription(Utilisateur utilisateur) {
+		RetourService<Utilisateur> resultat = new RetourService<>();
 		try {
 			PreparedStatement ps = connection.prepareStatement(
 					"insert into utilisateur (nom_utilisateur, prenom_utilisateur, login, password) value(?,?,?,md5(?))");
@@ -68,11 +71,17 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 			ps.setString(2, utilisateur.getPrenom());
 			ps.setString(3, utilisateur.getLogin());
 			ps.setString(4, utilisateur.getPassword());
-			return ps.executeUpdate() != 0;
+			ps.executeUpdate();
+			resultat.setContenu(utilisateur);
+			resultat.setReussi(true);
+			resultat.setMsg("Mise a jour avec sucsee");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			resultat.setReussi(false);
+			resultat.setMsg("Failed: Login existe deja");
 		} catch (SQLException e) {
-			e.printStackTrace();
+
 		}
-		return false;
+		return resultat;
 	}
 
 //	@Override
