@@ -18,7 +18,7 @@ import com.dogmanager.util.ContextConfigurationType;
 import com.dogmanager.util.MyContextFactory;
 
 @TestMethodOrder(Alphanumeric.class)
-public class ChienDaoTest {
+class ChienDaoTest {
 
 	private static ApplicationContext context;
 	private static IChienDao chienDao;
@@ -30,50 +30,50 @@ public class ChienDaoTest {
 	}
 
 	@Test
-	public void aGetChiensTest() {
+	void aGetChiensTest() {
 		List<Chien> chiens = chienDao.getChiens();
 		assertNotNull(chiens);
 	}
 
 	@Test
-	public void cGetChiensByUtilisateurIdTest() {
+	void cGetChiensByUtilisateurIdTest() {
 		List<Chien> chiens = chienDao.getChiensByUtilisateurId(1);
 		assertNotNull(chiens);
-		assertEquals(chiens.size(), 2);
+		assertEquals(3, chiens.size());
 	}
 
 	@Test
-	public void dAjoutChienTest() {
+	void dAjoutChienTest() {
 		Utilisateur u = new Utilisateur();
 		u.setId(1);
 		chienDao.ajouterChien(222, "coucou-test", 5, 1, 1);
 		List<Chien> chiens = chienDao.getChiensByUtilisateurId(1);
 		assertNotNull(chiens);
-		assertEquals(chiens.size(), 3);
+		assertEquals(3, chiens.size());
 
 	}
 
 	@Test
-	public void eGetChienById() {
+	void eGetChienById() {
 		Chien chien = chienDao.getChienById(222);
 		assertNotNull(chien);
 	}
 
 	@Test
-	public void fUpdateChienTest() {
+	void fUpdateChienTest() {
 		Utilisateur u = new Utilisateur();
 		u.setId(1);
 		Chien chien = chienDao.getChiensByUtilisateurId(1).get(0);
 		chienDao.update(chien, 222, "kkk", 5, 1, 1);
 		assertNotNull(chienDao.getChienById(222));
-		assertEquals(chienDao.getChienById(222).getNomChien(), "kkk");
+		assertEquals("kkk", chienDao.getChienById(222).getNomChien());
 	}
 
 	@Test
-	public void gDeleteChienTest() {
+	void gDeleteChienTest() {
 		chienDao.deleteChienById(222);
 		List<Chien> chiens = chienDao.getChiensByUtilisateurId(2);
 		assertNotNull(chiens);
-		assertEquals(chiens.size(), 2);
+		assertEquals(2, chiens.size());
 	}
 }

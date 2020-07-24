@@ -20,8 +20,8 @@
 		<form action="ajouter-chien" method="post">
 			<p>
 				numero-puce : <input class="form-control" name="numero-puce"
-					value="numero-puce" type="number" placeholder="numero-puce"
-					pattern="[0-9]+" min="1" placeholder="numero-puce">
+					value="numero-puce" type="number" pattern="[0-9]" min="1" max="99999"
+					placeholder="numero-puce" required>
 			</p>
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Race</label>
 			<select class="custom-select my-1 mr-sm-2" id="race" name="race">
@@ -30,8 +30,8 @@
 				</c:forEach>
 			</select>
 			<p>
-				nom : <input class="form-control" name="nom-chien" value="nom-chien"
-					type="text" placeholder="nom-chien" pattern="[a-zA-Z]+" required>
+				nom : <input class="form-control" name="nom-chien" value="Douggy"
+					type="text" placeholder="nom-chien" pattern="[a-zA-Z]{1,20}" required>
 			</p>
 
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">couleur</label>
@@ -44,12 +44,12 @@
 			</select>
 			<p>
 				age : <input class="form-control" name="age" value="age-chien"
-					type="number" placeholder="age-chien" pattern="[0-9]+" min="0"
+					type="number" placeholder="age-chien" pattern="[0-9]{1,2}" min="0"
 					max="30" required>
 			</p>
 			<button class="btn btn-success" type="submit">valider</button>
 		</form>
-		<span style="color: red;"><c:out value="${erreur}"/></br></span>
+		<span style="color: red;"><c:out value="${erreur}" /></br></span>
 	</div>
 </body>
 

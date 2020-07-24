@@ -50,16 +50,14 @@ public class ChienDaoImpl implements IChienDao {
 	@Override
 	public List<Chien> getChiens() {
 		List<Chien> chiens = new ArrayList<>();
-		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, "
-					+ "r.id_race, r.nom_race, c.id_couleur, c.couleur, "
-					+ "u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password "
-					+ "FROM chien AS ch " + "JOIN " + "race AS r " + "ON ch.id_race = r.id_race " + "JOIN "
-					+ "couleur AS c " + "ON ch.id_couleur = c.id_couleur " + "JOIN " + "utilisateur AS u "
-					+ "ON ch.id_utilisateur = u.id_utilisateur;");
+		try (PreparedStatement ps = connection.prepareStatement("SELECT ch.id_puce_chien, ch.nom_chien, ch.age_chien, "
+				+ "r.id_race, r.nom_race, c.id_couleur, c.couleur, "
+				+ "u.id_utilisateur, u.nom_utilisateur, u.prenom_utilisateur, u.login, u.password "
+				+ "FROM chien AS ch " + "JOIN " + "race AS r " + "ON ch.id_race = r.id_race " + "JOIN "
+				+ "couleur AS c " + "ON ch.id_couleur = c.id_couleur " + "JOIN " + "utilisateur AS u "
+				+ "ON ch.id_utilisateur = u.id_utilisateur;")) {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				// TODO
 				Chien chien = new Chien();
 				Couleur couleur = new Couleur();
 				Race race = new Race();
@@ -76,8 +74,6 @@ public class ChienDaoImpl implements IChienDao {
 
 				chien.setCouleur(couleur);
 				chien.setRace(race);
-//				chien.setUtilisateur(utilisateur);
-
 				chiens.add(chien);
 			}
 
@@ -90,11 +86,11 @@ public class ChienDaoImpl implements IChienDao {
 	@Override
 	public List<Chien> getChiensByUtilisateurId(int id) {
 		List<Chien> chiens = new ArrayList<>();
-		try {
-			PreparedStatement ps = connection.prepareStatement(
-					"SELECT ch.*, r.*, c.*  " + "FROM chien AS ch " + "JOIN race AS r " + "ON ch.id_race = r.id_race "
-							+ "JOIN  couleur AS c " + "ON ch.id_couleur = c.id_couleur  " + "JOIN utilisateur AS u "
-							+ "ON ch.id_utilisateur = u.id_utilisateur " + "WHERE u.id_utilisateur = ?;");
+		try (PreparedStatement ps = connection.prepareStatement(
+				"SELECT ch.*, r.*, c.*  " + "FROM chien AS ch " + "JOIN race AS r " + "ON ch.id_race = r.id_race "
+						+ "JOIN  couleur AS c " + "ON ch.id_couleur = c.id_couleur  " + "JOIN utilisateur AS u "
+						+ "ON ch.id_utilisateur = u.id_utilisateur " + "WHERE u.id_utilisateur = ?;");) {
+
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -105,8 +101,6 @@ public class ChienDaoImpl implements IChienDao {
 				chien.setAgeChien(rs.getInt("ch.age_chien"));
 				chien.setCouleur(couleurService.getCouleurById(rs.getInt("ch.id_couleur")));
 				chien.setRace(raceService.getRaceById(rs.getInt("ch.id_race")));
-//				chien.setUtilisateur(utilisateurService.selectUtilisateurtById(id));
-
 				chiens.add(chien);
 			}
 
@@ -119,9 +113,8 @@ public class ChienDaoImpl implements IChienDao {
 	@Override
 	public RetourService<Chien> ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
 		RetourService<Chien> resultat = new RetourService<>();
-		try {
-			PreparedStatement ps = connection.prepareStatement(
-					"insert into chien (id_puce_chien, nom_chien, age_chien, id_couleur, id_race, id_utilisateur) values (?, ?, ?, ?, ?, ?);");
+		try (PreparedStatement ps = connection.prepareStatement(
+				"insert into chien (id_puce_chien, nom_chien, age_chien, id_couleur, id_race, id_utilisateur) values (?, ?, ?, ?, ?, ?);");) {
 			ps.setInt(1, idPuce);
 			ps.setString(2, nomChien);
 			ps.setInt(3, ageChien);
@@ -136,7 +129,8 @@ public class ChienDaoImpl implements IChienDao {
 			resultat.setReussi(false);
 			resultat.setMsg("Failed: id chien existe deja");
 		} catch (SQLException e) {
-
+			resultat.setReussi(false);
+			resultat.setMsg("Failed !");
 		}
 		return resultat;
 	}
@@ -146,8 +140,8 @@ public class ChienDaoImpl implements IChienDao {
 			int idRace) {
 		RetourService<Chien> resultat = new RetourService<>();
 		String query = "UPDATE chien SET id_puce_chien = ?, nom_chien = ?, age_chien =?, id_couleur=?, id_race=? WHERE id_puce_chien = ?  and id_utilisateur = ?; ";
-		try {
-			PreparedStatement ps = connection.prepareStatement(query);
+		try (PreparedStatement ps = connection.prepareStatement(query);) {
+
 			ps.setInt(1, idPuce);
 			ps.setString(2, nomChien);
 			ps.setInt(3, ageChien);
@@ -163,15 +157,15 @@ public class ChienDaoImpl implements IChienDao {
 			resultat.setReussi(false);
 			resultat.setMsg("Failed: id chien existe deja");
 		} catch (SQLException e) {
-
+			resultat.setReussi(false);
+			resultat.setMsg("Failed");
 		}
 		return resultat;
 	}
 
 	@Override
 	public void deleteChienById(int idPuce) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("delete from chien where id_puce_chien = ?");
+		try (PreparedStatement ps = connection.prepareStatement("delete from chien where id_puce_chien = ?");) {
 			ps.setInt(1, idPuce);
 			ps.executeUpdate();
 
@@ -182,16 +176,14 @@ public class ChienDaoImpl implements IChienDao {
 
 	@Override
 	public Chien getChienById(int idPuce) {
-		try {
-			PreparedStatement ps = connection
-					.prepareStatement("select * from chien where id_puce_chien = ?  and id_utilisateur = ?;");
+		try (PreparedStatement ps = connection
+				.prepareStatement("select * from chien where id_puce_chien = ?  and id_utilisateur = ?;");) {
 			ps.setInt(1, idPuce);
 			ps.setInt(2, utilisateurService.getCurentUtilisateurId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				return new Chien(rs.getInt(1), rs.getString(2), rs.getInt(3),
 						couleurService.getCouleurById(rs.getInt(4)), raceService.getRaceById(rs.getInt(5)));// ,
-//						utilisateurService.selectUtilisateurtById(rs.getInt(6)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

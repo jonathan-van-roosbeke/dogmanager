@@ -18,7 +18,7 @@ import com.dogmanager.util.ContextConfigurationType;
 import com.dogmanager.util.MyContextFactory;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ChienServiceTest {
+class ChienServiceTest {
 
 	private static ApplicationContext context;
 	private static IChienService chien;
@@ -31,14 +31,14 @@ public class ChienServiceTest {
 
 	@Test
 	@Order(1)
-	public void getChiensTest() {
+	void getChiensTest() {
 		List<Chien> chiens = chien.getChiens();
 		assertNotNull(chiens);
 	}
 
 	@Test
 	@Order(2)
-	public void getChiensByUtilisateurIdTest() {
+	void getChiensByUtilisateurIdTest() {
 		List<Chien> chiens = chien.getChiensByUtilisateurId(2);
 		System.out.println(chiens.size());
 		assertNotNull(chiens);
@@ -47,7 +47,7 @@ public class ChienServiceTest {
 
 	@Test
 	@Order(3)
-	public void ajoutChienServiceTest() {
+	void ajoutChienServiceTest() {
 		chien.ajouterChien(111, "coucou-test-service", 5, 1, 1);
 		List<Chien> chiens = chien.getChiensByUtilisateurId(2);
 		assertNotNull(chiens);
@@ -57,7 +57,7 @@ public class ChienServiceTest {
 
 	@Test
 	@Order(4)
-	public void deleteChienServiceTest() {
+	void deleteChienServiceTest() {
 		chien.deleteChienById(111);
 		List<Chien> chiens = chien.getChiensByUtilisateurId(2);
 		assertNotNull(chiens);

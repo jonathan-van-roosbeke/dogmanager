@@ -35,9 +35,9 @@ public class RaceDaoImpl implements IRaceDao {
 	@Override
 	public List<Race> getRaces() {
 		List<Race> races = new ArrayList<>();
-		try {
-			PreparedStatement ps = connection.prepareStatement("select * from race");
-			ResultSet rs = ps.executeQuery();
+		try (PreparedStatement ps = connection.prepareStatement("select * from race");
+				ResultSet rs = ps.executeQuery();) {
+
 			while (rs.next()) {
 				Race r = new Race();
 				r.setIdRace(rs.getInt("id_race"));
@@ -53,8 +53,7 @@ public class RaceDaoImpl implements IRaceDao {
 
 	@Override
 	public Race getRaceById(int id) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("select * from race where id_race =?");
+		try (PreparedStatement ps = connection.prepareStatement("select * from race where id_race =?");) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {

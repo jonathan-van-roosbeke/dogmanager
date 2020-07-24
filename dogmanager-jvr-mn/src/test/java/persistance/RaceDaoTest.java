@@ -14,26 +14,26 @@ import com.dogmanager.dao.IRaceDao;
 import com.dogmanager.util.ContextConfigurationType;
 import com.dogmanager.util.MyContextFactory;
 
-public class RaceDaoTest {
+class RaceDaoTest {
 
 	private static ApplicationContext context;
 	private static IRaceDao raceDao;
 
 	@BeforeAll
-	public static void initAll() {
+	static void initAll() {
 		context = MyContextFactory.getContext(ContextConfigurationType.CLASSPATH);
 		raceDao = context.getBean(IRaceDao.class);
 	}
 
 	@Test
-	public void getRaceByIdTest() {
+	void getRaceByIdTest() {
 		Race race = raceDao.getRaceById(1);
 		assertNotNull(race);
 		assertEquals(race.getNomRace(), "border collie");
 	}
 
 	@Test
-	public void getCouleursTest() {
+	void getCouleursTest() {
 		List<Race> races = raceDao.getRaces();
 		assertNotNull(races);
 		assertEquals(races.size(), 10);
