@@ -15,5 +15,4 @@ public class Chien {
 	private Couleur couleur;
 	private Race race;
 //	private Utilisateur utilisateur;
-
 }

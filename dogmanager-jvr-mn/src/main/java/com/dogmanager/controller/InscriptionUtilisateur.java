@@ -26,17 +26,18 @@ public class InscriptionUtilisateur extends AbstractServletController {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String nom = request.getParameter("nom");
-		String prenom = request.getParameter("prenom");
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
+		String nom = request.getParameter("nom") + "";
+		String prenom = request.getParameter("prenom") + "";
+		String login = request.getParameter("login") + "";
+		String password = request.getParameter("password") + "";
 
 		// TODO check all data
-		if (nom != null && prenom != null && login != null && password != null) {
+		if (nom.matches("^[A-Za-z]+$") && prenom.matches("^[A-Za-z]+$") && login.length() > 3
+				&& password.length() > 5) {
 			if (userServiceImp.inscription(new Utilisateur(nom, prenom, login, password))) {
 				response.sendRedirect("login");
 			} else {
-				request.setAttribute("error", "");
+				request.setAttribute("error", "Existe deja");
 				request.getRequestDispatcher("/jsp/creer-utilisateur.jsp").forward(request, response);
 			}
 		}

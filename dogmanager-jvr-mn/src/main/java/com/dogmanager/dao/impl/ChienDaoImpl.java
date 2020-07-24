@@ -115,7 +115,7 @@ public class ChienDaoImpl implements IChienDao {
 	}
 
 	@Override
-	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace, int idUtilisateur) {
+	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
 		try {
 			PreparedStatement ps = connection.prepareStatement(
 					"insert into chien (id_puce_chien, nom_chien, age_chien, id_couleur, id_race, id_utilisateur) values (?, ?, ?, ?, ?, ?);");
@@ -124,7 +124,7 @@ public class ChienDaoImpl implements IChienDao {
 			ps.setInt(3, ageChien);
 			ps.setInt(4, idCouleur);
 			ps.setInt(5, idRace);
-			ps.setInt(6, idUtilisateur);
+			ps.setInt(6, utilisateurService.getCurentUtilisateurId());
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
@@ -133,25 +133,22 @@ public class ChienDaoImpl implements IChienDao {
 	}
 
 	@Override
-	public Chien update(Chien chien, Chien newChien) {
+	public void update(Chien chien, int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
 
 		String query = "UPDATE chien SET id_puce_chien = ?, nom_chien = ?, age_chien =?, id_couleur=?, id_race=? WHERE id_puce_chien = ?  and id_utilisateur = ?; ";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setInt(1, newChien.getIdPuceChien());
-			ps.setString(2, newChien.getNomChien());
-			ps.setInt(3, newChien.getAgeChien());
-			ps.setInt(4, newChien.getCouleur().getIdCouleur());
-			ps.setInt(5, newChien.getRace().getIdRace());
+			ps.setInt(1, idPuce);
+			ps.setString(2, nomChien);
+			ps.setInt(3, ageChien);
+			ps.setInt(4, idCouleur);
+			ps.setInt(5, idRace);
 			ps.setInt(6, chien.getIdPuceChien());
-			ps.setInt(7, Utilisateur.getId());
+			ps.setInt(7, utilisateurService.getCurentUtilisateurId());
 			ps.executeUpdate();
-			System.out.println(ps);
-			return newChien;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	@Override

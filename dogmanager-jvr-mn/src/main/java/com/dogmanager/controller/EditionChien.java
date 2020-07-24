@@ -15,7 +15,6 @@ import com.dogmanager.controller.conf.AbstractServletController;
 import com.dogmanager.service.IChienService;
 import com.dogmanager.service.ICouleurService;
 import com.dogmanager.service.IRaceService;
-import com.dogmanager.service.IUtilisateurService;
 
 @WebServlet("/EditionChien")
 public class EditionChien extends AbstractServletController {
@@ -31,9 +30,6 @@ public class EditionChien extends AbstractServletController {
 	@Autowired
 	private IChienService chienService;
 
-	@Autowired
-	private IUtilisateurService utilisateurService;
-
 	private String idChien;
 	private Chien chien;
 
@@ -41,7 +37,6 @@ public class EditionChien extends AbstractServletController {
 			throws ServletException, IOException {
 		session = request.getSession(false);
 		idChien = request.getParameter("id-chien");
-
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
@@ -60,23 +55,18 @@ public class EditionChien extends AbstractServletController {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		session = request.getSession(false);
-
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
 			if (idChien != null && idChien.matches("[0-9]+")) {
-
 				String nomChien = request.getParameter("nom-chien");
 				int idPuceChien = Integer.parseInt(request.getParameter("numero-puce"));
 				int race = Integer.parseInt(request.getParameter("race"));
 				int couleur = Integer.parseInt(request.getParameter("couleur"));
 				int ageChien = Integer.parseInt(request.getParameter("age"));
 				// TODO check all
-				Chien newChien = new Chien(idPuceChien, nomChien, ageChien, couleurService.getCouleurById(couleur),
-						raceService.getRaceById(race));// , ((Utilisateur) session.getAttribute("utilisateur")));
-
-				chien = chienService.update(chienService.getChienById(Integer.parseInt(idChien)), newChien);
-
+				chienService.update(chienService.getChienById(Integer.parseInt(idChien)), idPuceChien, nomChien,
+						ageChien, couleur, race);
 				request.getRequestDispatcher("/liste-utilisateur").forward(request, response);
 			} else {
 				request.getRequestDispatcher("/liste-utilisateur").forward(request, response);
