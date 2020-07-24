@@ -47,6 +47,7 @@ public class EditionChien extends AbstractServletController {
 		} else {
 			if (idChien != null && idChien.matches("[0-9]+")) {
 				chien = chienService.getChienById(Integer.parseInt(idChien));
+				request.setAttribute("chien", chien);
 				request.setAttribute("races", raceService.getRaces());
 				request.setAttribute("couleurs", couleurService.getCouleurs());
 				request.getRequestDispatcher("/jsp/editer-chien.jsp").forward(request, response);
