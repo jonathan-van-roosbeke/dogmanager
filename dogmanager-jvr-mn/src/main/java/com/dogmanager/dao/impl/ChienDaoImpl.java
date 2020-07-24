@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.dogmanager.bean.Race;
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.dao.IChienDao;
 import com.dogmanager.dao.conf.IDatabaseConnection;
+import com.dogmanager.dto.RetourService;
 import com.dogmanager.service.ICouleurService;
 import com.dogmanager.service.IRaceService;
 import com.dogmanager.service.IUtilisateurService;
@@ -115,7 +117,8 @@ public class ChienDaoImpl implements IChienDao {
 	}
 
 	@Override
-	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
+	public RetourService<Chien> ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
+		RetourService<Chien> resultat = new RetourService<>();
 		try {
 			PreparedStatement ps = connection.prepareStatement(
 					"insert into chien (id_puce_chien, nom_chien, age_chien, id_couleur, id_race, id_utilisateur) values (?, ?, ?, ?, ?, ?);");
@@ -126,15 +129,22 @@ public class ChienDaoImpl implements IChienDao {
 			ps.setInt(5, idRace);
 			ps.setInt(6, utilisateurService.getCurentUtilisateurId());
 			ps.executeUpdate();
-
+			resultat.setContenu(null);
+			resultat.setReussi(true);
+			resultat.setMsg("Mise a jour avec sucsee");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			resultat.setReussi(false);
+			resultat.setMsg("Failed: id chien existe deja");
 		} catch (SQLException e) {
-			e.printStackTrace();
+
 		}
+		return resultat;
 	}
 
 	@Override
-	public void update(Chien chien, int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
-
+	public RetourService<Chien> update(Chien chien, int idPuce, String nomChien, int ageChien, int idCouleur,
+			int idRace) {
+		RetourService<Chien> resultat = new RetourService<>();
 		String query = "UPDATE chien SET id_puce_chien = ?, nom_chien = ?, age_chien =?, id_couleur=?, id_race=? WHERE id_puce_chien = ?  and id_utilisateur = ?; ";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
@@ -146,9 +156,16 @@ public class ChienDaoImpl implements IChienDao {
 			ps.setInt(6, chien.getIdPuceChien());
 			ps.setInt(7, utilisateurService.getCurentUtilisateurId());
 			ps.executeUpdate();
+			resultat.setContenu(null);
+			resultat.setReussi(true);
+			resultat.setMsg("Mise a jour avec sucsee");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			resultat.setReussi(false);
+			resultat.setMsg("Failed: id chien existe deja");
 		} catch (SQLException e) {
-			e.printStackTrace();
+
 		}
+		return resultat;
 	}
 
 	@Override

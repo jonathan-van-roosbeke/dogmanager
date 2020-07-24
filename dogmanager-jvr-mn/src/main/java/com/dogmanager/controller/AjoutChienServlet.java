@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.dogmanager.bean.Chien;
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.controller.conf.AbstractServletController;
+import com.dogmanager.dto.RetourService;
 import com.dogmanager.service.IChienService;
 import com.dogmanager.service.ICouleurService;
 import com.dogmanager.service.IRaceService;
@@ -47,7 +48,7 @@ public class AjoutChienServlet extends AbstractServletController {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int idPuceChien = Integer.parseInt(request.getParameter("numero-puce"));
+		int idPuceChien = Integer.parseInt((request.getParameter("numero-puce")+"").matches("[\\d]+")? request.getParameter("numero-puce") : "0");
 		int idRace = Integer.parseInt(request.getParameter("race"));
 		String nomChien = request.getParameter("nom-chien");
 		int idCouleur = Integer.parseInt(request.getParameter("couleur"));
@@ -57,11 +58,16 @@ public class AjoutChienServlet extends AbstractServletController {
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
-			chienService.ajouterChien(idPuceChien, nomChien, ageChien, idCouleur, idRace);
+			RetourService<Chien> rsc = chienService.ajouterChien(idPuceChien, nomChien, ageChien, idCouleur, idRace);
 			List<Chien> chiens = chienService
 					.getChiensByUtilisateurId(((Utilisateur) session.getAttribute("utilisateur")).getId());
-			request.setAttribute("chiens", chiens);
-			this.getServletContext().getRequestDispatcher("/jsp/liste-utilisateur.jsp").forward(request, response);
+			if (rsc.isReussi()) {
+				request.setAttribute("chiens", chiens);
+				this.getServletContext().getRequestDispatcher("/jsp/liste-utilisateur.jsp").forward(request, response);
+			}else {
+				request.setAttribute("erreur", rsc.getMsg());
+			}
+			request.getRequestDispatcher("/jsp/ajouter-chien.jsp").forward(request, response);
 		}
 	}
 }
