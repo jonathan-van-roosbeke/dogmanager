@@ -17,6 +17,10 @@ import com.dogmanager.service.IUtilisateurService;
 public class ConnexionUtilisateur extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
 
+	/*
+	 * injection de interfaces IUtilisateurService afin de pouvoir appeler la
+	 * methode connexion
+	 */
 	@Autowired
 	IUtilisateurService userServiceImp;
 
@@ -26,6 +30,11 @@ public class ConnexionUtilisateur extends AbstractServletController {
 		request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
 	}
 
+	/**
+	 * si le login ou password est incorrect la methode envoie un message a la jsp
+	 * si non, la methode ajoute un utilisateur dans la session et la redirige vers
+	 * la servlet liste-utilisateur
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,6 +43,7 @@ public class ConnexionUtilisateur extends AbstractServletController {
 		String password = request.getParameter("password");
 		Utilisateur utilisateur = userServiceImp.connexion(login, password);
 		if (utilisateur != null) {
+			// ajouter l'utilisateur a la saisson si la connexion est ok
 			request.getSession().setAttribute("utilisateur", utilisateur);
 			response.sendRedirect("liste-utilisateur");
 		} else {
