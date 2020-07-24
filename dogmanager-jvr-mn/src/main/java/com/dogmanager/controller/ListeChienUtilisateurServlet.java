@@ -28,6 +28,17 @@ public class ListeChienUtilisateurServlet extends AbstractServletController {
 	private HttpSession session;
 	private List<Chien> chiens;
 
+	
+	/**
+	 * 
+	 * GET
+	 * 
+	 * Si la session de l'utilisateur est null alors on le redirige vers la page de
+	 * login pour se connecter.
+	 * Si la session de l'utilisateur est active alors on
+	 * récupère les chiens de l'utilisateur actuel pour ensuite le rediriger sur
+	 * sa page
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -44,13 +55,13 @@ public class ListeChienUtilisateurServlet extends AbstractServletController {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		session = request.getSession(false);
-		if (session == null || session.getAttribute("utilisateur") == null) {
-			request.getRequestDispatcher("/login").forward(request, response);
-		} else {
-			chiens = chienService.getChiensByUtilisateurId(utilisateurService.getCurentUtilisateurId());
-			request.setAttribute("chiens", chiens);
-			this.getServletContext().getRequestDispatcher("/jsp/liste-utilisateur.jsp").forward(request, response);
-		}
+//		session = request.getSession(false);
+//		if (session == null || session.getAttribute("utilisateur") == null) {
+//			request.getRequestDispatcher("/login").forward(request, response);
+//		} else {
+//			chiens = chienService.getChiensByUtilisateurId(utilisateurService.getCurentUtilisateurId());
+//			request.setAttribute("chiens", chiens);
+//			this.getServletContext().getRequestDispatcher("/jsp/liste-utilisateur.jsp").forward(request, response);
+//		}
 	}
 }
