@@ -52,13 +52,12 @@ public class AjoutChienServlet extends AbstractServletController {
 		String nomChien = request.getParameter("nom-chien");
 		int idCouleur = Integer.parseInt(request.getParameter("couleur"));
 		int ageChien = Integer.parseInt(request.getParameter("age"));
-		
+
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
-			chienService.ajouterChien(idPuceChien, nomChien, ageChien, idCouleur, idRace,
-					((Utilisateur) session.getAttribute("utilisateur")).getId());
+			chienService.ajouterChien(idPuceChien, nomChien, ageChien, idCouleur, idRace);
 			List<Chien> chiens = chienService
 					.getChiensByUtilisateurId(((Utilisateur) session.getAttribute("utilisateur")).getId());
 			request.setAttribute("chiens", chiens);

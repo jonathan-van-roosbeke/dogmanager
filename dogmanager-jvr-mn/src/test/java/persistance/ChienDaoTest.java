@@ -6,52 +6,47 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer.Alphanumeric;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.context.ApplicationContext;
 
 import com.dogmanager.bean.Chien;
-import com.dogmanager.bean.Couleur;
-import com.dogmanager.bean.Race;
+import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.dao.IChienDao;
-import com.dogmanager.dao.IUtilisateurDao;
 import com.dogmanager.util.ContextConfigurationType;
 import com.dogmanager.util.MyContextFactory;
 
+@TestMethodOrder(Alphanumeric.class)
 public class ChienDaoTest {
 
 	private static ApplicationContext context;
 	private static IChienDao chienDao;
-	private static IUtilisateurDao utilisateurDao;
 
 	@BeforeAll
 	public static void initAll() {
 		context = MyContextFactory.getContext(ContextConfigurationType.CLASSPATH);
 		chienDao = context.getBean(IChienDao.class);
-		utilisateurDao = context.getBean(IUtilisateurDao.class);
 	}
 
 	@Test
-	public void getChiensTest() {
+	public void aGetChiensTest() {
 		List<Chien> chiens = chienDao.getChiens();
 		assertNotNull(chiens);
 	}
 
 	@Test
-	public void getChienById() {
-		Chien chien = chienDao.getChienById(93);
-		assertNotNull(chien);
-	}
-
-	@Test
-	public void getChiensByUtilisateurIdTest() {
-		List<Chien> chiens = chienDao.getChiensByUtilisateurId(2);
+	public void cGetChiensByUtilisateurIdTest() {
+		List<Chien> chiens = chienDao.getChiensByUtilisateurId(1);
 		assertNotNull(chiens);
 		assertEquals(chiens.size(), 2);
 	}
 
 	@Test
-	public void ajoutChienTest() {
-		chienDao.ajouterChien(111, "coucou-test", 5, 1, 1, 2);
+	public void dAjoutChienTest() {
+		Utilisateur u = new Utilisateur();
+		u.setId(1);
+		chienDao.ajouterChien(222, "coucou-test", 5, 1, 1);
 		List<Chien> chiens = chienDao.getChiensByUtilisateurId(1);
 		assertNotNull(chiens);
 		assertEquals(chiens.size(), 3);
@@ -59,19 +54,26 @@ public class ChienDaoTest {
 	}
 
 	@Test
-	public void deleteChienTest() {
-		chienDao.deleteChienById(111);
-		List<Chien> chiens = chienDao.getChiensByUtilisateurId(2);
-		assertNotNull(chiens);
-		assertEquals(chiens.size(), 2);
+	public void eGetChienById() {
+		Chien chien = chienDao.getChienById(222);
+		assertNotNull(chien);
 	}
 
 	@Test
-	public void updateChienTest() {
+	public void fUpdateChienTest() {
+		Utilisateur u = new Utilisateur();
+		u.setId(1);
 		Chien chien = chienDao.getChiensByUtilisateurId(1).get(0);
-		Chien newChien = chienDao.update(chien, new Chien(93, "bbbb", 10, new Couleur(1, ""), new Race(3, "")));// ,
-		// utilisateurDao.selectUtilisateurtById(1)));
-		assertNotNull(newChien);
-		assertEquals(newChien.getIdPuceChien(), 93);
+		chienDao.update(chien, 222, "kkk", 5, 1, 1);
+		assertNotNull(chienDao.getChienById(222));
+		assertEquals(chienDao.getChienById(222).getNomChien(), "kkk");
+	}
+
+	@Test
+	public void gDeleteChienTest() {
+		chienDao.deleteChienById(222);
+		List<Chien> chiens = chienDao.getChiensByUtilisateurId(2);
+		assertNotNull(chiens);
+		assertEquals(chiens.size(), 2);
 	}
 }

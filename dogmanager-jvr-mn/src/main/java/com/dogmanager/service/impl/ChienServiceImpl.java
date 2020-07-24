@@ -33,8 +33,8 @@ public class ChienServiceImpl implements IChienService {
 	}
 
 	@Override
-	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace, int idUtilisateur) {
-		chienDao.ajouterChien(idPuce, nomChien, ageChien, idCouleur, idRace, idUtilisateur);
+	public void ajouterChien(int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
+		chienDao.ajouterChien(idPuce, nomChien, ageChien, idCouleur, idRace);
 	}
 
 	@Override
@@ -42,9 +42,8 @@ public class ChienServiceImpl implements IChienService {
 		chienDao.deleteChienById(idPuce);
 	}
 
-	public Chien update(Chien chien, Chien newChien) {
-
-		return chienDao.update(chien, newChien);
+	public void update(Chien chien, int idPuce, String nomChien, int ageChien, int idCouleur, int idRace) {
+		chienDao.update(chien, idPuce, nomChien, ageChien, idCouleur, idRace);
 	}
 
 	@Override

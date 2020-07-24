@@ -48,8 +48,8 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Utilisateur u = new Utilisateur(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						chienService.getChiensByUtilisateurId(utilisateurService.getCurentUtilisateurId()));
+				Utilisateur u = new Utilisateur(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));// ,
+				// chienService.getChiensByUtilisateurId(utilisateurService.getCurentUtilisateurId()));
 				u.setId(rs.getInt(1));
 				return u;
 			}

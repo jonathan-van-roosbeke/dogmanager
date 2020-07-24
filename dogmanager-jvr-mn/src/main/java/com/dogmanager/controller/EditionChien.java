@@ -15,7 +15,6 @@ import com.dogmanager.controller.conf.AbstractServletController;
 import com.dogmanager.service.IChienService;
 import com.dogmanager.service.ICouleurService;
 import com.dogmanager.service.IRaceService;
-import com.dogmanager.service.IUtilisateurService;
 
 @WebServlet("/EditionChien")
 public class EditionChien extends AbstractServletController {
@@ -31,8 +30,8 @@ public class EditionChien extends AbstractServletController {
 	@Autowired
 	private IChienService chienService;
 
-	@Autowired
-	private IUtilisateurService utilisateurService;
+//	@Autowired
+//	private IUtilisateurService utilisateurService;
 
 	private String idChien;
 	private Chien chien;
@@ -72,11 +71,8 @@ public class EditionChien extends AbstractServletController {
 				int couleur = Integer.parseInt(request.getParameter("couleur"));
 				int ageChien = Integer.parseInt(request.getParameter("age"));
 				// TODO check all
-				Chien newChien = new Chien(idPuceChien, nomChien, ageChien, couleurService.getCouleurById(couleur),
-						raceService.getRaceById(race));// , ((Utilisateur) session.getAttribute("utilisateur")));
-
-				chien = chienService.update(chienService.getChienById(Integer.parseInt(idChien)), newChien);
-
+				chienService.update(chienService.getChienById(Integer.parseInt(idChien)), idPuceChien, nomChien,
+						ageChien, couleur, race);
 				request.getRequestDispatcher("/liste-utilisateur").forward(request, response);
 			} else {
 				request.getRequestDispatcher("/liste-utilisateur").forward(request, response);
