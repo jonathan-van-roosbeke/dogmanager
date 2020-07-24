@@ -54,10 +54,9 @@
 			</p>
 			<button class="btn btn-success" type="submit">valider</button>
 			<input type="button" class="btn btn-secondary" name="reset" value="Reset" id="reset123" onclick="customReset();"/>
+			<input type="button" class="btn btn-danger" name="Delete" value="Delete" id="delete123" onclick="customDelete(${chien.idPuceChien});"/>
 		</form>
-		<form action="DeleteChienServlet" method="post">
-			<button class="btn btn-danger" type="submit">delete</button>
-		</form>
+		
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -72,6 +71,8 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="js/reset.js"></script>
+	
 </body>
 </html>
