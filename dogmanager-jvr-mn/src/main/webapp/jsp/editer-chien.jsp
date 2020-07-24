@@ -19,43 +19,59 @@
 		<h3>Editer un chien</h3>
 		<form action="EditionChien" method="post">
 			<p>
-				numero-puce : <input class="form-control" name="numero-puce"
-					value="${chien.idPuceChien}" type="text"/>
+				numero-puce : <input class="form-control" id="puce-chien" 
+					name="numero-puce" value="${chien.idPuceChien}" type="text" />
 			</p>
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Race</label>
-			<select class="custom-select my-1 mr-sm-2" id="race" name = "race">
+			<select class="custom-select my-1 mr-sm-2" id="race" name="race">
 				<option value="${chien.race.idRace}">${chien.race.nomRace}</option>
 				<c:forEach items="${races}" var="races">
-					<c:if test = "${races.nomRace != chien.race.nomRace }">
+					<c:if test="${races.nomRace != chien.race.nomRace }">
 						<option value="${races.idRace}">${races.nomRace}</option>
 					</c:if>
 				</c:forEach>
 			</select>
 			<p>
-				nom : <input class="form-control" name="nom-chien" value="${chien.nomChien}"
-					type="text" pattern="[a-zA-Z]+" required />
+				nom : <input class="form-control" id="nom-chien" name="nom-chien"
+					value="${chien.nomChien}" type="text" pattern="[a-zA-Z]+" required />
 			</p>
 
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">couleur</label>
 
-			<select class="custom-select my-1 mr-sm-2" id="couleur" name = "couleur">
-			<option value="chien.couleur.couleur">${chien.couleur.couleur}</option>
+			<select class="custom-select my-1 mr-sm-2" id="couleur"
+				name="couleur">
+				<option value="chien.couleur.couleur">${chien.couleur.couleur}</option>
 				<c:forEach items="${couleurs}" var="couleurs">
-					<c:if test = "${couleurs.couleur != chien.couleur.couleur }">
+					<c:if test="${couleurs.couleur != chien.couleur.couleur }">
 						<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
 					</c:if>
 				</c:forEach>
 			</select>
 
 			<p>
-				age : <input class="form-control" name="age" value="${chien.ageChien}"
-					type="number" pattern="[0-9]+" required />
+				age : <input class="form-control" id="age-chien" name="age"
+					value="${chien.ageChien}" type="number" pattern="[0-9]+" required />
 			</p>
 			<button class="btn btn-success" type="submit">valider</button>
-			<button class="btn btn-danger" type="submit">reset</button>
+			<input type="button" class="btn btn-secondary" name="reset" value="Reset" id="reset123" onclick="customReset();"/>
 		</form>
-
+		<form action="DeleteChienServlet" method="post">
+			<button class="btn btn-danger" type="submit">delete</button>
 		</form>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
+	<script src="js/reset.js"></script>
 </body>
 </html>
