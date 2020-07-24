@@ -20,30 +20,36 @@
 		<form action="EditionChien" method="post">
 			<p>
 				numero-puce : <input class="form-control" name="numero-puce"
-					value="numero-puce" type="text" placeholder="${chien}" />
+					value="${chien.idPuceChien}" type="text"/>
 			</p>
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Race</label>
 			<select class="custom-select my-1 mr-sm-2" id="race" name = "race">
+				<option value="${chien.race.idRace}">${chien.race.nomRace}</option>
 				<c:forEach items="${races}" var="races">
-					<option value="${races.idRace}">${races.nomRace}</option>
+					<c:if test = "${races.nomRace != chien.race.nomRace }">
+						<option value="${races.idRace}">${races.nomRace}</option>
+					</c:if>
 				</c:forEach>
 			</select>
 			<p>
-				nom : <input class="form-control" name="nom-chien" value="nom-chien"
-					type="text" placeholder="nom-chien" pattern="[a-zA-Z]+" required />
+				nom : <input class="form-control" name="nom-chien" value="${chien.nomChien}"
+					type="text" pattern="[a-zA-Z]+" required />
 			</p>
 
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">couleur</label>
 
 			<select class="custom-select my-1 mr-sm-2" id="couleur" name = "couleur">
+			<option value="chien.couleur.couleur">${chien.couleur.couleur}</option>
 				<c:forEach items="${couleurs}" var="couleurs">
-					<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
+					<c:if test = "${couleurs.couleur != chien.couleur.couleur }">
+						<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
+					</c:if>
 				</c:forEach>
 			</select>
 
 			<p>
-				age : <input class="form-control" name="age" value="age-chien"
-					type="number" placeholder="age-chien" pattern="[0-9]+" required />
+				age : <input class="form-control" name="age" value="${chien.ageChien}"
+					type="number" pattern="[0-9]+" required />
 			</p>
 			<button class="btn btn-success" type="submit">valider</button>
 			<button class="btn btn-danger" type="submit">reset</button>
