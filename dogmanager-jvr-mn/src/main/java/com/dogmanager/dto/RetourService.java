@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class RetourService<T> {
 
-	T contenu;
-	boolean reussi;
-	String msg;
+	private T contenu;
+	private boolean reussi;
+	private String msg;
 
 }
 

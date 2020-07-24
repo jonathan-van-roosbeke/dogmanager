@@ -1,6 +1,7 @@
 package com.dogmanager.service;
 
 import com.dogmanager.bean.Utilisateur;
+import com.dogmanager.dto.RetourService;
 
 public interface IUtilisateurService {
 
@@ -8,7 +9,7 @@ public interface IUtilisateurService {
 
 	public Utilisateur connexion(String login, String password);
 
-	public boolean inscription(Utilisateur utilisateur);
+	public RetourService<Utilisateur> inscription(Utilisateur utilisateur);
 
 //	public Utilisateur selectUtilisateurtById(int id);
 

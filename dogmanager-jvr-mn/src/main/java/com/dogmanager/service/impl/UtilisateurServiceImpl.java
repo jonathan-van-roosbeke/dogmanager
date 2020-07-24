@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.dao.IUtilisateurDao;
+import com.dogmanager.dto.RetourService;
 import com.dogmanager.service.IUtilisateurService;
 
 import lombok.AllArgsConstructor;
@@ -29,8 +30,7 @@ public class UtilisateurServiceImpl implements IUtilisateurService {
 	}
 
 	@Override
-	public boolean inscription(Utilisateur utilisateur) {
-
+	public RetourService<Utilisateur> inscription(Utilisateur utilisateur) {
 		return utilisateurDao.inscription(utilisateur);
 	}
 
