@@ -74,7 +74,7 @@ public class ChienDaoImpl implements IChienDao {
 
 				chien.setCouleur(couleur);
 				chien.setRace(race);
-				chien.setUtilisateur(utilisateur);
+//				chien.setUtilisateur(utilisateur);
 
 				chiens.add(chien);
 			}
@@ -103,7 +103,7 @@ public class ChienDaoImpl implements IChienDao {
 				chien.setAgeChien(rs.getInt("ch.age_chien"));
 				chien.setCouleur(couleurService.getCouleurById(rs.getInt("ch.id_couleur")));
 				chien.setRace(raceService.getRaceById(rs.getInt("ch.id_race")));
-				chien.setUtilisateur(utilisateurService.selectUtilisateurtById(id));
+//				chien.setUtilisateur(utilisateurService.selectUtilisateurtById(id));
 
 				chiens.add(chien);
 			}
@@ -144,11 +144,12 @@ public class ChienDaoImpl implements IChienDao {
 			ps.setInt(4, newChien.getCouleur().getIdCouleur());
 			ps.setInt(5, newChien.getRace().getIdRace());
 			ps.setInt(6, chien.getIdPuceChien());
-			ps.setInt(7, chien.getUtilisateur().getId());
+			ps.setInt(7, Utilisateur.getId());
 			ps.executeUpdate();
+			System.out.println(ps);
 			return newChien;
 		} catch (SQLException e) {
-
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -168,13 +169,15 @@ public class ChienDaoImpl implements IChienDao {
 	@Override
 	public Chien getChienById(int idPuce) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("select * from chien where id_puce_chien = ?");
+			PreparedStatement ps = connection
+					.prepareStatement("select * from chien where id_puce_chien = ?  and id_utilisateur = ?;");
 			ps.setInt(1, idPuce);
+			ps.setInt(2, utilisateurService.getCurentUtilisateurId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				return new Chien(rs.getInt(1), rs.getString(2), rs.getInt(3),
-						couleurService.getCouleurById(rs.getInt(4)), raceService.getRaceById(rs.getInt(5)),
-						utilisateurService.selectUtilisateurtById(rs.getInt(6)));
+						couleurService.getCouleurById(rs.getInt(4)), raceService.getRaceById(rs.getInt(5)));// ,
+//						utilisateurService.selectUtilisateurtById(rs.getInt(6)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

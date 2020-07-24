@@ -8,13 +8,14 @@ import com.dogmanager.dao.IUtilisateurDao;
 import com.dogmanager.service.IUtilisateurService;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Getter
+@Setter
 @Service
 public class UtilisateurServiceImpl implements IUtilisateurService {
 
@@ -34,13 +35,12 @@ public class UtilisateurServiceImpl implements IUtilisateurService {
 	}
 
 	@Override
-	public Utilisateur selectUtilisateurtById(int id) {
-
-		return utilisateurDao.selectUtilisateurtById(id);
+	public int deleteByLogin(String login) {
+		return utilisateurDao.deleteByLogin(login);
 	}
 
 	@Override
-	public int deleteByLogin(String login) {
-		return utilisateurDao.deleteByLogin(login);
+	public int getCurentUtilisateurId() {
+		return Utilisateur.getId();
 	}
 }

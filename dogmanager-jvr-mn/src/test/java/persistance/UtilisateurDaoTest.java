@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer.Alphanumeric;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.context.ApplicationContext;
 
 import com.dogmanager.bean.Utilisateur;
@@ -12,6 +14,7 @@ import com.dogmanager.dao.IUtilisateurDao;
 import com.dogmanager.util.ContextConfigurationType;
 import com.dogmanager.util.MyContextFactory;
 
+@TestMethodOrder(Alphanumeric.class)
 public class UtilisateurDaoTest {
 	private static IUtilisateurDao utilisateurDao;
 	private static ApplicationContext context;
@@ -23,7 +26,7 @@ public class UtilisateurDaoTest {
 	}
 
 	@Test
-	public void inscription() {
+	public void ainscription() {
 		Utilisateur utilisateur = new Utilisateur();
 		utilisateur.setNom("momo123");
 		utilisateur.setPrenom("momo123");
@@ -35,15 +38,9 @@ public class UtilisateurDaoTest {
 
 	@Test
 	public void connexion() {
-		Utilisateur user = utilisateurDao.connexion("momo1235", "momo123");
+		Utilisateur user = utilisateurDao.connexion("momo12356", "momo123");
 		assertNotNull(user);
 		assertNotEquals(0, user.getId());
-	}
-
-	@Test
-	public void selectUtilisateurtById() {
-		Utilisateur user = utilisateurDao.selectUtilisateurtById(1);
-		assertNotNull(user);
 	}
 
 	@Test

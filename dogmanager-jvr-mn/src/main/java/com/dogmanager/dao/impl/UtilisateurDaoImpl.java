@@ -12,18 +12,27 @@ import org.springframework.stereotype.Repository;
 import com.dogmanager.bean.Utilisateur;
 import com.dogmanager.dao.IUtilisateurDao;
 import com.dogmanager.dao.conf.IDatabaseConnection;
+import com.dogmanager.service.IChienService;
+import com.dogmanager.service.IUtilisateurService;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Repository
 public class UtilisateurDaoImpl implements IUtilisateurDao {
 
 	private Connection connection;
+
+	@Autowired
+	IChienService chienService;
+	@Autowired
+	IUtilisateurService utilisateurService;
 
 	@Autowired
 	public UtilisateurDaoImpl(@Qualifier("connexionMariadb") IDatabaseConnection databaseConnection) {
@@ -39,9 +48,10 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				return new Utilisateur(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						null);
-				// TODO passer la liste des chiens au lieu de null
+				Utilisateur u = new Utilisateur(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						chienService.getChiensByUtilisateurId(utilisateurService.getCurentUtilisateurId()));
+				u.setId(rs.getInt(1));
+				return u;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -65,21 +75,24 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 		return false;
 	}
 
-	@Override
-	public Utilisateur selectUtilisateurtById(int id) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("select * from utilisateur;");
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				// TODO remplacer null par la liste des chiens.
-				return new Utilisateur(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						null);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	@Override
+//	public Utilisateur selectUtilisateurtById(int id) {
+//		try {
+//			PreparedStatement ps = connection.prepareStatement("select * from utilisateur where id_utilisateur = ?;");
+//			ps.setInt(1, id);
+//			ResultSet rs = ps.executeQuery();
+//			while (rs.next()) {
+//				// TODO remplacer null par la liste des chiens.
+//				Utilisateur u = new Utilisateur(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+//						null);
+//				u.setId(rs.getInt(1));
+//				return u;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
 	@Override
 	public int deleteByLogin(String login) {

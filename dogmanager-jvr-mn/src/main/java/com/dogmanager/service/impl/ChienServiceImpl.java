@@ -48,7 +48,7 @@ public class ChienServiceImpl implements IChienService {
 	}
 
 	@Override
-	public Chien getChiensById(int id) {
+	public Chien getChienById(int id) {
 		return chienDao.getChienById(id);
 	}
 }

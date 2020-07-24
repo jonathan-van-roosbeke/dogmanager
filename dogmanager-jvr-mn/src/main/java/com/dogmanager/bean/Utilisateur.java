@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Utilisateur {
-	private int id;
+	private static int id;
 	private String nom;
 	private String prenom;
 	private String login;
@@ -23,5 +23,13 @@ public class Utilisateur {
 		this.prenom = prenom;
 		this.login = login;
 		this.password = password;
+	}
+
+	public static int getId() {
+		return Utilisateur.id;
+	}
+
+	public void setId(int id) {
+		Utilisateur.id = id;
 	}
 }
