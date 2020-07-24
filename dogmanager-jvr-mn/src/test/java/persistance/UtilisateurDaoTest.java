@@ -2,6 +2,7 @@ package persistance;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.Alphanumeric;
@@ -27,26 +28,27 @@ public class UtilisateurDaoTest {
 	}
 
 	@Test
-	public void ainscription() {
+	public void aInscription() {
 		Utilisateur utilisateur = new Utilisateur();
 		utilisateur.setNom("momo123");
 		utilisateur.setPrenom("momo123");
 		utilisateur.setLogin("momo1235");
-		utilisateur.setPassword("momo123");
+		utilisateur.setPassword("momo1235");
 		RetourService<Utilisateur> resultat = utilisateurDao.inscription(utilisateur);
-		assertNotEquals(false, resultat.isReussi());
+		assertTrue(resultat.isReussi());
 	}
 
 	@Test
-	public void connexion() {
-		Utilisateur user = utilisateurDao.connexion("momo12356", "momo123");
+	public void cDelete() {
+		int resultat = utilisateurDao.deleteByLogin("momo1235");
+		assertNotEquals(0, resultat);
+	}
+
+	@Test
+	public void bConnexion() {
+		Utilisateur user = utilisateurDao.connexion("momo1235", "momo1235");
 		assertNotNull(user);
 		assertNotEquals(0, user.getId());
 	}
 
-	@Test
-	public void delete() {
-		int resultat = utilisateurDao.deleteByLogin("momo1235");
-		assertNotEquals(0, resultat);
-	}
 }

@@ -32,8 +32,7 @@ public class InscriptionUtilisateur extends AbstractServletController {
 		String login = request.getParameter("login") + "";
 		String password = request.getParameter("password") + "";
 
-		// TODO check all data
-		if (nom.matches("^[A-Za-z]+$") && prenom.matches("^[A-Za-z]+$") && login.length() > 3
+		if (nom.matches("[a-zA-Z]{3,}") && prenom.matches("[a-zA-Z]{3,}") && login.length() > 3
 				&& password.length() > 5) {
 			RetourService<Utilisateur> resultat = userServiceImp
 					.inscription(new Utilisateur(nom, prenom, login, password));
@@ -44,5 +43,9 @@ public class InscriptionUtilisateur extends AbstractServletController {
 			}
 		}
 		request.getRequestDispatcher("/jsp/creer-utilisateur.jsp").forward(request, response);
+	}
+
+	public static void main(String[] args) {
+		System.out.println("de".matches("[a-zA-Z]{3,}"));
 	}
 }
