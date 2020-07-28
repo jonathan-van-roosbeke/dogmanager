@@ -36,7 +36,6 @@ public class ListeChienUtilisateurServlet extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
 
 	private HttpSession session;
-	private List<Chien> chiens;
 
 	/**
 	 * 
@@ -54,7 +53,10 @@ public class ListeChienUtilisateurServlet extends AbstractServletController {
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
-			chiens = chienService.getChiensByUtilisateurId(((Utilisateur) session.getAttribute("utilisateur")).getId());
+			List<Chien> chiens = chienService.getChiensByUtilisateurId(((Utilisateur) session.getAttribute("utilisateur")).getId());
+			for (Chien chien : chiens) {
+				System.out.println(chien);
+			}
 			request.setAttribute("chiens", chiens);
 			request.setAttribute("race", raceService);
 			request.setAttribute("couleurs", couleurService.getCouleurs());

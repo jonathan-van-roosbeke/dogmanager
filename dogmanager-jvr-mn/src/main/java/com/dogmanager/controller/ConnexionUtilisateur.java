@@ -27,7 +27,7 @@ public class ConnexionUtilisateur extends AbstractServletController {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class ConnexionUtilisateur extends AbstractServletController {
 			response.sendRedirect("liste-utilisateur");
 		} else {
 			request.setAttribute("erreur", "Utilisateur / mot de  passe incorrect");
-			request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		}
 	}
 }

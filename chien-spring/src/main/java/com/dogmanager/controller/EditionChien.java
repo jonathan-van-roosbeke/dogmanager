@@ -41,7 +41,6 @@ public class EditionChien extends AbstractServletController {
 	private IChienService chienService;
 
 	private String idChien;
-	private Chien chien;
 
 	/**
 	 * 
@@ -55,9 +54,9 @@ public class EditionChien extends AbstractServletController {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Chien chien;
 		session = request.getSession(false);
 		idChien = request.getParameter("id-chien");
-		System.out.println(idChien);
 		if (session == null || session.getAttribute("utilisateur") == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
@@ -67,6 +66,7 @@ public class EditionChien extends AbstractServletController {
 				request.setAttribute("races", raceService.getRaces());
 				request.setAttribute("couleurs", couleurService.getCouleurs());
 				request.getRequestDispatcher("/WEB-INF/jsp/editer-chien.jsp").forward(request, response);
+				return;
 			} else {
 				response.sendRedirect("liste-utilisateur");
 			}
@@ -109,10 +109,15 @@ public class EditionChien extends AbstractServletController {
 				Couleur couleur = couleurService.getCouleurById(idCouleur);
 				Race race = raceService.getRaceById(idRace);
 				Utilisateur utilisateur = ((Utilisateur) session.getAttribute("utilisateur"));
+				Chien oldChien = null;
 				Chien newChien = new Chien(idPuceChien, nomChien, ageChien, utilisateur.getId(), idRace, idCouleur);
-				Chien chien = chienService.getChienById(Integer.parseInt(idChien));
-				if (chien != null && newChien != null) {
-					Chien retourServiceChien = chienService.update(chien, newChien);
+
+				idChien = request.getParameter("old-puce-chien");
+				if (idChien != null && idChien.matches("[0-9]+")) {
+					oldChien = chienService.getChienById(Integer.parseInt(idChien));
+				}
+				if (oldChien != null && newChien != null) {
+					Chien retourServiceChien = chienService.update(oldChien, newChien);
 					if (retourServiceChien != null) {
 						retourServiceChien.setCouleur(couleurService.getCouleurById(idCouleur));
 						retourServiceChien.setRace(raceService.getRaceById(idRace));
@@ -120,6 +125,9 @@ public class EditionChien extends AbstractServletController {
 						return;
 					} else {
 						request.setAttribute("erreur", "erreur ");
+						request.setAttribute("chien", oldChien);
+						request.setAttribute("races", raceService.getRaces());
+						request.setAttribute("couleurs", couleurService.getCouleurs());
 						request.getRequestDispatcher("/WEB-INF/jsp/editer-chien.jsp").forward(request, response);
 					}
 				}
