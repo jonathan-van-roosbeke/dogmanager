@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,8 +19,8 @@
 		<form action="ajouter-chien" method="post">
 			<p>
 				numero-puce : <input class="form-control" name="numero-puce"
-					value="numero-puce" type="number" pattern="[0-9]" min="1" max="99999"
-					placeholder="numero-puce" required>
+					value="numero-puce" type="number" pattern="[0-9]" min="1"
+					max="99999" placeholder="numero-puce" required>
 			</p>
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Race</label>
 			<select class="custom-select my-1 mr-sm-2" id="race" name="race">
@@ -31,7 +30,8 @@
 			</select>
 			<p>
 				nom : <input class="form-control" name="nom-chien" value="Douggy"
-					type="text" placeholder="nom-chien" pattern="[a-zA-Z]{1,20}" required>
+					type="text" placeholder="nom-chien" pattern="[a-zA-Z]{1,20}"
+					required>
 			</p>
 
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">couleur</label>
