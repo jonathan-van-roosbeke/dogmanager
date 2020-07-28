@@ -26,8 +26,11 @@
 			</p>
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Race</label>
 			<select class="custom-select my-1 mr-sm-2" id="race" name="race">
+				<option value="${chien.race.idRace}">${chien.race.nomRace}</option>
 				<c:forEach items="${races}" var="races">
-					<option value="${races.idRace}">${races.nomRace}</option>
+					<c:if test="${races.nomRace != chien.race.nomRace }">
+						<option value="${races.idRace}">${races.nomRace}</option>
+					</c:if>
 				</c:forEach>
 			</select>
 			<p>
@@ -39,8 +42,11 @@
 
 			<select class="custom-select my-1 mr-sm-2" id="couleur"
 				name="couleur">
+				<option value="${chien.couleur.idCouleur}">${chien.couleur.couleur}</option>
 				<c:forEach items="${couleurs}" var="couleurs">
-					<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
+					<c:if test="${couleurs.couleur != chien.couleur.couleur }">
+						<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
+					</c:if>
 				</c:forEach>
 			</select>
 
@@ -50,15 +56,14 @@
 					max="30" required>
 			</p>
 
-			 <input class="form-control" id="old-puce-chien"
-					name="old-puce-chien" value="${chien.idPuceChien}" type="hidden">
 			<button class="btn btn-success" type="submit">valider</button>
 			<input type="button" class="btn btn-secondary" name="reset"
-				value="Reset" id="reset123" onclick="customReset();" /> <input
+				value="Reset" id="reset123" onclick="customReset();" /> 
+			<input
 				type="button" class="btn btn-danger" name="Delete" value="Delete"
 				id="delete123" onclick="customDelete(${chien.idPuceChien});" />
 		</form>
-		<span style="color: red;"><c:out value="${erreur}" /></br></span>
+		<span style="color: red;"><c:out value="${erreur}"/></br></span>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dogmanager.bean.Utilisateur;
@@ -23,6 +24,8 @@ public class ConnexionUtilisateur extends AbstractServletController {
 	 */
 	@Autowired
 	IUtilisateurService userServiceImp;
+
+	SessionFactory sessionFactory;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

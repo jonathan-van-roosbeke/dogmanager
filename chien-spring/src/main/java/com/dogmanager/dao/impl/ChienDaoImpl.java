@@ -2,6 +2,8 @@ package com.dogmanager.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
 import org.springframework.stereotype.Repository;
 
 import com.dogmanager.bean.Chien;
@@ -23,14 +25,25 @@ public class ChienDaoImpl extends GenericDao<Chien, Integer> implements IChienDa
 	@Override
 	public Chien update(Chien chien, Chien newChien) throws Exception {
 
-		em.getTransaction().begin();
-		em.createNativeQuery(
-				"UPDATE Chien SET id_puce_chien =:nIdPuce, nom_chien =:nName , age_chien =:nAge, id_couleur=:nCouleur, id_race=:nIdRace WHERE id_puce_chien = :idPuce  and id_utilisateur =:idUtilisateur")
-				.setParameter("nIdPuce", newChien.getIdPuceChien()).setParameter("nName", newChien.getNomChien())
-				.setParameter("nAge", newChien.getAgeChien()).setParameter("nCouleur", newChien.getIdCouleur())
-				.setParameter("nIdRace", newChien.getIdRace()).setParameter("idPuce", chien.getIdPuceChien())
-				.setParameter("idUtilisateur", chien.getIdUtilisateur()).executeUpdate();
-		em.getTransaction().commit();
+		EntityTransaction tx = null;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			em.createNativeQuery(
+					"UPDATE Chien SET id_puce_chien =:nIdPuce, nom_chien =:nName , age_chien =:nAge, id_couleur=:nCouleur, id_race=:nIdRace WHERE id_puce_chien = :idPuce  and id_utilisateur =:idUtilisateur")
+					.setParameter("nIdPuce", newChien.getIdPuceChien()).setParameter("nName", newChien.getNomChien())
+					.setParameter("nAge", newChien.getAgeChien()).setParameter("nCouleur", newChien.getIdCouleur())
+					.setParameter("nIdRace", newChien.getIdRace()).setParameter("idPuce", chien.getIdPuceChien())
+					.setParameter("idUtilisateur", chien.getIdUtilisateur()).executeUpdate();
+			tx.commit();
+			tx = em.getTransaction();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		}
+
 		return newChien;
 	}
 }
