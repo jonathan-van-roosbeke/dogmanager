@@ -1,4 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -26,8 +25,11 @@
 			</p>
 			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Race</label>
 			<select class="custom-select my-1 mr-sm-2" id="race" name="race">
+				<option value="${chien.race.idRace}">${chien.race.nomRace}</option>
 				<c:forEach items="${races}" var="races">
-					<option value="${races.idRace}">${races.nomRace}</option>
+					<c:if test="${races.nomRace != chien.race.nomRace }">
+						<option value="${races.idRace}">${races.nomRace}</option>
+					</c:if>
 				</c:forEach>
 			</select>
 			<p>
@@ -39,14 +41,17 @@
 
 			<select class="custom-select my-1 mr-sm-2" id="couleur"
 				name="couleur">
+				<option value="chien.couleur.couleur">${chien.couleur.couleur}</option>
 				<c:forEach items="${couleurs}" var="couleurs">
-					<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
+					<c:if test="${couleurs.couleur != chien.couleur.couleur }">
+						<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
+					</c:if>
 				</c:forEach>
 			</select>
 
 			<p>
-				age : <input class="form-control" name="age" value="age-chien"
-					type="number" placeholder="age-chien" pattern="[0-9]+" min="0"
+				age : <input class="form-control" name="age" value="${chien.ageChien}"
+					type="number" pattern="[0-9]+" min="0"
 					max="30" required>
 			</p>
 
