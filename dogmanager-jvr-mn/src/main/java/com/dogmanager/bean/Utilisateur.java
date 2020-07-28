@@ -18,7 +18,7 @@ public class Utilisateur implements Serializable {
 	private String login;
 	private String password;
 
-	public static void setId(int id) {
+	public void setId(int id) {
 		Utilisateur.id = id;
 	}
 

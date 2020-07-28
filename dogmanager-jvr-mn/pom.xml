@@ -202,8 +202,8 @@
 						<source>1.8</source>
 						<target>1.8</target>
 						<encoding>UTF-8</encoding>
-<!-- 						<fork>true</fork> -->
-<!-- 						<executable>C:\java\jdk-8u251\bin\javac</executable> -->
+						<!-- <fork>true</fork> -->
+						<!-- <executable>C:\java\jdk-8u251\bin\javac</executable> -->
 					</configuration>
 				</plugin>
 				<plugin>
@@ -223,7 +223,33 @@
 					<version>2.8.2</version>
 				</plugin>
 
+				<!-- h -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.2.0</version>
+					<configuration>
+						<show>private</show>
+						<nohelp>true</nohelp>
+					</configuration>
+				</plugin>
+
+				<!-- c -->
+
 			</plugins>
 		</pluginManagement>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+					<show>public</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

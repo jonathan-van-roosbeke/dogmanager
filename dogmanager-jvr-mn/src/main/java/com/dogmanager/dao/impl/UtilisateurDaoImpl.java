@@ -43,8 +43,9 @@ public class UtilisateurDaoImpl implements IUtilisateurDao {
 
 	@Override
 	public Utilisateur connexion(String login, String password) {
-		String query = "select * from utilisateur where login = ? and password = md5(?)";
-		try (PreparedStatement ps = connection.prepareStatement(query);) {
+		try {
+			String query = "select * from utilisateur where login = ? and password = md5(?)";
+			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setString(1, login);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();

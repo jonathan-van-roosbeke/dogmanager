@@ -39,7 +39,7 @@ class ChienDaoTest {
 	void cGetChiensByUtilisateurIdTest() {
 		List<Chien> chiens = chienDao.getChiensByUtilisateurId(1);
 		assertNotNull(chiens);
-		assertEquals(3, chiens.size());
+		assertEquals(2, chiens.size());
 	}
 
 	@Test
