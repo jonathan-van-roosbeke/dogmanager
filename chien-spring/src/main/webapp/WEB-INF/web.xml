@@ -4,10 +4,19 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
     id="WebApp_ID" version="4.0" >
     <display-name>Dogmanager</display-name>
+    
     <welcome-file-list>
         <!-- Lien de lancement de l'appli -->
         <welcome-file>login</welcome-file>
     </welcome-file-list>
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern> *.jsp </url-pattern>
+			<include-prelude>/WEB-INF/jsp/jstlLib.jsp</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
+    
 <!--declaration de l'application context dans le serveur -->
     <listener>
         <listener-class>
