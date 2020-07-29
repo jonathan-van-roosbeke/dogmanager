@@ -3,10 +3,12 @@ package com.dogmanager.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import com.dogmanager.bean.Chien;
+import com.dogmanager.constant.Constant;
 import com.dogmanager.dao.IChienDao;
 
 @Repository
@@ -45,5 +47,22 @@ public class ChienDaoImpl extends GenericDao<Chien, Integer> implements IChienDa
 		}
 
 		return newChien;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Chien> findAllPagination(int idUtilisateur, int pageNumber) {
+		Query query = em.createQuery("From Chien where id_utilisateur = :idUtilisateur");
+		query.setParameter("idUtilisateur", idUtilisateur);
+		query.setFirstResult((pageNumber - 1) * Constant.PAGE_SIZE);
+		query.setMaxResults(Constant.PAGE_SIZE);
+		return query.getResultList();
+	}
+
+	@Override
+	public long getNombreDeChien(int idUtilisateur) {
+		Query query = em.createQuery("SELECT COUNT(*) FROM Chien where id_utilisateur =:idUtilisateur");
+		query.setParameter("idUtilisateur", idUtilisateur);
+		return (long) query.getSingleResult();
 	}
 }

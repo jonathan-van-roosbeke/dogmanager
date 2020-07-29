@@ -28,18 +28,52 @@
 				<c:forEach items="${chiens}" var="chien">
 					<tr class="hand" data-href='#'>
 						<td class="user-select-none id-chien">${chien.idPuceChien}</td>
-						<td><c:out value="${chien.race.nomRace}"/></td>
-						<td><c:out value="${chien.nomChien}"/></td>
-						<td><c:out value="${chien.couleur.couleur}"/></td>
-						<td><c:out value="${chien.ageChien}"/></td>
+						<td><c:out value="${chien.race.nomRace}" /></td>
+						<td><c:out value="${chien.nomChien}" /></td>
+						<td><c:out value="${chien.couleur.couleur}" /></td>
+						<td><c:out value="${chien.ageChien}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<form action="ajouter-chien">
-			<button class="btn btn-success" type="submit">Ajouter un
-				chien</button>
-		</form>
+
+		<div class="container">
+			<div class="row">
+
+				<div class="col-10">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+
+							<c:set var="count" value="0" scope="page" />
+							<c:if test="${ idPage gt 1}">
+								<li class="page-item"><a class="page-link"
+									href="liste-utilisateur?page=${idPage - 1}">Precedent</a></li>
+							</c:if>
+							<c:forEach begin="1" end="${nombrePage}" var="page">
+								<c:set var="count" value="${count + 1}" scope="page" />
+								<li class="page-item"><a class="page-link"
+									href="liste-utilisateur?page=${count}">${count}</a></li>
+							</c:forEach>
+
+							<c:if test="${ idPage lt nombrePage}">
+								<li class="page-item"><a class="page-link"
+									href="liste-utilisateur?page=${idPage + 1}">Suivant</a></li>
+							</c:if>
+						</ul>
+					</nav>
+				</div>
+				<div class="col-2">
+
+					<form action="ajouter-chien">
+						<button class="btn btn-success" type="submit">Ajouter un
+							chien</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
