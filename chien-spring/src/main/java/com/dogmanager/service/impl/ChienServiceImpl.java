@@ -64,4 +64,14 @@ public class ChienServiceImpl implements IChienService {
 	public Chien getChienById(int id) {
 		return chienDao.findById(id);
 	}
+
+	@Override
+	public List<Chien> findAllPagination(int idUtilisateur, int pageNumber) {
+		return chienDao.findAllPagination(idUtilisateur, pageNumber);
+	}
+
+	@Override
+	public long getNombreDeChien(int idUtilisateur) {
+		return chienDao.getNombreDeChien(idUtilisateur);
+	}
 }

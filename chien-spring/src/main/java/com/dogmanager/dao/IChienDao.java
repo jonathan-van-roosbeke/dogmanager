@@ -25,4 +25,8 @@ public interface IChienDao {
 
 	public List<Chien> getChiensByUtilisateurId(int id);
 
+	public List<Chien> findAllPagination(int idUtilisateur, int pageNumber);
+
+	public long getNombreDeChien(int idUtilisateur);
+
 }

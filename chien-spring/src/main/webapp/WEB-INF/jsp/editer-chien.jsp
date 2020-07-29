@@ -27,9 +27,9 @@
 			<select class="custom-select my-1 mr-sm-2" id="race" name="race">
 				<option value="${chien.race.idRace}">${chien.race.nomRace}</option>
 				<c:forEach items="${races}" var="races">
-					<c:if test="${races.nomRace != chien.race.nomRace }">
+<%-- 					<c:if test="${races.nomRace != chien.race.nomRace }"> --%>
 						<option value="${races.idRace}">${races.nomRace}</option>
-					</c:if>
+<%-- 					</c:if> --%>
 				</c:forEach>
 			</select>
 			<p>
@@ -41,20 +41,27 @@
 
 			<select class="custom-select my-1 mr-sm-2" id="couleur"
 				name="couleur">
-				<option value="chien.couleur.couleur">${chien.couleur.couleur}</option>
 				<c:forEach items="${couleurs}" var="couleurs">
-					<c:if test="${couleurs.couleur != chien.couleur.couleur }">
-						<option value="${couleurs.idCouleur}">${couleurs.couleur}</option>
-					</c:if>
+<%-- 					<c:if test="${couleurs.couleur == chien.couleur.couleur }"> --%>
+<%-- 						<option value="${couleurs.idCouleur}" selected="selected">${couleurs.couleur}</option> --%>
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${couleurs.couleur != chien.couleur.couleur }"> --%>
+
+						<option value="${couleurs.idCouleur}" >${couleurs.couleur}</option>
+<%-- 					</c:if> --%>
+
+
 				</c:forEach>
 			</select>
 
 			<p>
-				age : <input class="form-control" name="age" value="${chien.ageChien}"
-					type="number" pattern="[0-9]+" min="0"
+				age : <input class="form-control" name="age"
+					value="${chien.ageChien}" type="number" pattern="[0-9]+" min="0"
 					max="30" required>
 			</p>
 
+			<input class="form-control" id="old-puce-chien" name="old-puce-chien"
+				value="${chien.idPuceChien}" type="hidden">
 			<button class="btn btn-success" type="submit">valider</button>
 			<input type="button" class="btn btn-secondary" name="reset"
 				value="Reset" id="reset123" onclick="customReset();" /> <input

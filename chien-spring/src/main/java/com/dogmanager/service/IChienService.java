@@ -79,4 +79,8 @@ public interface IChienService {
 	 */
 	public void deleteChienById(int idPuce);
 
+	public List<Chien> findAllPagination(int idUtilisateur, int pageNumber);
+
+	public long getNombreDeChien(int idUtilisateur);
+
 }
