@@ -37,7 +37,6 @@ public class ListeChienUtilisateurServlet extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
 
 	private HttpSession session;
-	private List<Chien> chiens;
 
 	/**
 	 * 

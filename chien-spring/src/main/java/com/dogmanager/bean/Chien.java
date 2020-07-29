@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Contains method to greet users by their name and location.
@@ -58,5 +59,10 @@ public class Chien {
 		this.idUtilisateur = idUtilisateur;
 		this.idCouleur = idCouleur;
 		this.idRace = idRace;
+	}
+
+	@Override
+	public String toString() {
+		return "Chien [idPuceChien=" + idPuceChien + ", nomChien=" + nomChien + ", ageChien=" + ageChien + "]";
 	}
 }
