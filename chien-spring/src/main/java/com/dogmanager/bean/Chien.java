@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 /**
  * Contains method to greet users by their name and location.
@@ -23,6 +22,9 @@ import lombok.ToString;
 @Entity
 public class Chien {
 	@Id
+	@Column(name = "id_chien")
+	private int idChien;
+
 	@Column(name = "id_puce_chien")
 	private int idPuceChien;
 	@Column(name = "nom_chien")

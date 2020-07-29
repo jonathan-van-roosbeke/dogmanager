@@ -74,4 +74,9 @@ public class ChienServiceImpl implements IChienService {
 	public long getNombreDeChien(int idUtilisateur) {
 		return chienDao.getNombreDeChien(idUtilisateur);
 	}
+
+	@Override
+	public Chien getChienByPuceId(int idPuce, int idUtilisateur) {
+		return chienDao.getChienByPuceId(idPuce, idUtilisateur);
+	}
 }

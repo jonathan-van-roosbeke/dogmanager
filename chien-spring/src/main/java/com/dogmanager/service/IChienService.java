@@ -48,6 +48,8 @@ public interface IChienService {
 
 	public Chien getChienById(int id);
 
+	public Chien getChienByPuceId(int idPuce, int idUtilisateur);
+
 	/**
 	 * Methode servant à récupérer les chiens de l'utilisateur par identifiant
 	 * utilisateur base de donnée en passant par l’interface IchienDao

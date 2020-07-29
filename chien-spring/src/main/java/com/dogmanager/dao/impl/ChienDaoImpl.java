@@ -29,14 +29,15 @@ public class ChienDaoImpl extends GenericDao<Chien, Integer> implements IChienDa
 
 		EntityTransaction tx = null;
 		try {
+
 			tx = em.getTransaction();
 			tx.begin();
-			em.createNativeQuery(
-					"UPDATE Chien SET id_puce_chien =:nIdPuce, nom_chien =:nName , age_chien =:nAge, id_couleur=:nCouleur, id_race=:nIdRace WHERE id_puce_chien = :idPuce  and id_utilisateur =:idUtilisateur")
-					.setParameter("nIdPuce", newChien.getIdPuceChien()).setParameter("nName", newChien.getNomChien())
-					.setParameter("nAge", newChien.getAgeChien()).setParameter("nCouleur", newChien.getIdCouleur())
-					.setParameter("nIdRace", newChien.getIdRace()).setParameter("idPuce", chien.getIdPuceChien())
-					.setParameter("idUtilisateur", chien.getIdUtilisateur()).executeUpdate();
+			Chien vChien = (Chien) em.find(Chien.class, chien.getIdChien());
+			vChien.setIdPuceChien(newChien.getIdPuceChien());
+			vChien.setNomChien(newChien.getNomChien());
+			vChien.setIdCouleur(newChien.getIdCouleur());
+			vChien.setIdRace(newChien.getIdRace());
+			vChien.setAgeChien(newChien.getAgeChien());
 			tx.commit();
 			tx = em.getTransaction();
 		} catch (Exception e) {
@@ -52,11 +53,10 @@ public class ChienDaoImpl extends GenericDao<Chien, Integer> implements IChienDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Chien> findAllPagination(int idUtilisateur, int pageNumber) {
-		Query query = em.createQuery("From Chien where id_utilisateur = :idUtilisateur");
-		query.setParameter("idUtilisateur", idUtilisateur);
-		query.setFirstResult((pageNumber - 1) * Constant.PAGE_SIZE);
-		query.setMaxResults(Constant.PAGE_SIZE);
-		return query.getResultList();
+		return em.createQuery("FROM Chien WHERE id_utilisateur= :idUtilisateur")
+				.setParameter("idUtilisateur", idUtilisateur).setFirstResult((pageNumber - 1) * Constant.PAGE_SIZE)
+				.setMaxResults(Constant.PAGE_SIZE).getResultList();
+
 	}
 
 	@Override
@@ -64,5 +64,12 @@ public class ChienDaoImpl extends GenericDao<Chien, Integer> implements IChienDa
 		Query query = em.createQuery("SELECT COUNT(*) FROM Chien where id_utilisateur =:idUtilisateur");
 		query.setParameter("idUtilisateur", idUtilisateur);
 		return (long) query.getSingleResult();
+	}
+
+	@Override
+	public Chien getChienByPuceId(int idPuce, int idUtilisateur) {
+		return (Chien) em
+				.createQuery("FROM Chien WHERE id_puce_chien= :id_puce_chien and id_utilisateur = :idUtilisateur")
+				.setParameter("id_puce_chien", idPuce).setParameter("idUtilisateur", idUtilisateur).getSingleResult();
 	}
 }

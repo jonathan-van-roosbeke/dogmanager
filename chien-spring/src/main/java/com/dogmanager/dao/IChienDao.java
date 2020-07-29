@@ -15,6 +15,8 @@ public interface IChienDao {
 
 	Chien findById(Integer id);
 
+	public Chien getChienByPuceId(int idPuce, int idUtilisateur);
+
 	void delete(Chien chienToDelete) throws Exception;
 
 	List<Chien> findAll();

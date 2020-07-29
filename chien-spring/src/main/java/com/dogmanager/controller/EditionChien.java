@@ -57,11 +57,12 @@ public class EditionChien extends AbstractServletController {
 		Chien chien;
 		session = request.getSession(false);
 		idChien = request.getParameter("id-chien");
-		if (session == null || session.getAttribute("utilisateur") == null) {
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+		if (session == null || utilisateur == null) {
 			request.getRequestDispatcher("/login").forward(request, response);
 		} else {
 			if (idChien != null && idChien.matches("[0-9]+")) {
-				chien = chienService.getChienById(Integer.parseInt(idChien));
+				chien = chienService.getChienByPuceId(Integer.parseInt(idChien), utilisateur.getId());
 				request.setAttribute("chien", chien);
 				request.setAttribute("races", raceService.getRaces());
 				request.setAttribute("couleurs", couleurService.getCouleurs());
@@ -110,11 +111,10 @@ public class EditionChien extends AbstractServletController {
 				Race race = raceService.getRaceById(idRace);
 				Utilisateur utilisateur = ((Utilisateur) session.getAttribute("utilisateur"));
 				Chien oldChien = null;
-				Chien newChien = new Chien(idPuceChien, nomChien, ageChien, utilisateur.getId(), idRace, idCouleur);
-
+				Chien newChien = new Chien(idPuceChien, nomChien, ageChien, utilisateur.getId(), idCouleur, idRace);
 				idChien = request.getParameter("old-puce-chien");
 				if (idChien != null && idChien.matches("[0-9]+")) {
-					oldChien = chienService.getChienById(Integer.parseInt(idChien));
+					oldChien = chienService.getChienByPuceId(Integer.parseInt(idChien), utilisateur.getId());
 				}
 				if (oldChien != null && newChien != null) {
 					Chien retourServiceChien = chienService.update(oldChien, newChien);
@@ -129,6 +129,7 @@ public class EditionChien extends AbstractServletController {
 						request.setAttribute("races", raceService.getRaces());
 						request.setAttribute("couleurs", couleurService.getCouleurs());
 						request.getRequestDispatcher("/WEB-INF/jsp/editer-chien.jsp").forward(request, response);
+						return;
 					}
 				}
 			}
